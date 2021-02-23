@@ -36,7 +36,7 @@ Game::Game()
 	this->initPlayer();
 	this->initEnemy();
 	this->initGUI();
-	this->gameStateMusic();
+	this->initMusic();
 }
 
 //deconstructor
@@ -51,7 +51,12 @@ Game::~Game()
 
 const bool Game::getWindowIsOpen() const
 {
-	return this->window.isOpen();
+	return this->window.isOpen() && this->endGame == false;
+}
+
+const bool & Game::getEndGame() const
+{
+	return this->endGame;
 }
 
 //Game functions
@@ -78,11 +83,17 @@ void Game::enemyRender()
 void Game::guiUpdate()
 {
 	this->gui->update();
+
 }
 
 void Game::guiRender()
 {
 	this->gui->render(this->window);
+
+	if (this->gui->lives <= 0)
+	{
+		this->endGame = true;
+	}
 }
 
 void Game::collisionUpdate()
@@ -152,6 +163,7 @@ bool Game::collisionCheck()
 
 		if (intersectX[i] < 0.f && intersectY[i] < 0.f)
 		{
+			this->gui->lives -= 1;
 			this->enemy->rocketNumber = i;
 			this->enemy->positionSet(this->window.getSize().x, this->enemy->rocket_list[i].getPosition().y);
 
@@ -160,6 +172,8 @@ bool Game::collisionCheck()
 	}
 	return false;
 }
+
+
 
 void Game::update()
 {
@@ -215,7 +229,7 @@ void Game::render()
 
 }
 
-void Game::gameStateMusic()
+void Game::initMusic()
 {
 	//music.openFromFile("Music/Game Music.wav");
 	//music.setLoop(true);

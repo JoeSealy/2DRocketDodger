@@ -18,6 +18,8 @@ private:
 	Enemy*  enemy;
 	GUI* gui;
 
+	bool endGame;
+
 	//functions
 	void initwindow();
 	void initPlayer();
@@ -33,6 +35,7 @@ public:
 
 	//Accessors
 	const bool getWindowIsOpen() const;
+	const bool & getEndGame() const;
 
 	//Fuctions
 	void collisionUpdate();
@@ -54,7 +57,7 @@ public:
 	//Game functions
 	void update();
 	void render();
-	void gameStateMusic();
+	void initMusic();
 	const sf::RenderWindow& getWindow() const;
 	
 

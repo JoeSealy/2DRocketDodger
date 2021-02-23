@@ -37,14 +37,14 @@ void GUI::initClock()
 void GUI::initScore()
 {
 	this->scoreText.setFont(scoreFont);
-	this->scoreText.setPosition(600, 0);
+	this->scoreText.setPosition(500, 0);
 	this->scoreText.setCharacterSize(30);
 }
 
 void GUI::initLives()
 {
 	this->livesText.setFont(livesFont);
-	this->livesText.setPosition(300, 0);
+	this->livesText.setPosition(250, 0);
 	this->livesText.setCharacterSize(30);
 }
 
@@ -86,7 +86,7 @@ void GUI::toClockString()
 	std::ostringstream covertClock;
 	covertClock << std::setprecision(2) << std::fixed << this->countUp;
 	this->countUpStr = covertClock.str();
-	timerText.setString(this->countUpStr);
+	timerText.setString("Timer: " + this->countUpStr);
 }
 
 void GUI::toScoreString()
@@ -94,7 +94,7 @@ void GUI::toScoreString()
 	std::ostringstream covertScore;
 	covertScore << this->score;
 	this->scoreUpStr = covertScore.str();
-	scoreText.setString(this->scoreUpStr);
+	scoreText.setString("Score: " + this->scoreUpStr);
 }
 
 void GUI::toLivesString()
@@ -102,7 +102,7 @@ void GUI::toLivesString()
 	std::ostringstream covertlives;
 	covertlives << this->lives;
 	this->livesStr = covertlives.str();
-	livesText.setString(this->livesStr);
+	livesText.setString("lives: " + this->livesStr);
 }
 
 
