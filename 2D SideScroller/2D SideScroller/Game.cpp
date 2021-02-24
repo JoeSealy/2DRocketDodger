@@ -247,24 +247,29 @@ void Game::render()
 	this->window.clear(sf::Color(47, 79, 79, 255));
 	//Draws
 
-	this->guiRender();
 
-	this->enemyRender();
 
-	this->playerRender();
 
-	if (this->endGame) 
-	{
-		if (musicStageInt == 2) {
-			this->musicInGame.pause();
-			this->musicDeath.play();
-			this->musicStageInt = 3;
+	//if (this->startGame)
+	//{
+		this->guiRender();
+
+		this->enemyRender();
+
+		this->playerRender();
+
+		if (this->endGame)
+		{
+			if (musicStageInt == 2) {
+				this->musicInGame.pause();
+				this->musicDeath.play();
+				this->musicStageInt = 3;
+			}
+
+			this->window.clear(sf::Color::Black);
+			this->window.draw(this->gui->endGameText);
 		}
-
-		this->window.clear(sf::Color::Black);
-		this->window.draw(this->gui->endGameText);
-	}
-
+	//}
 	this->window.display();
 
 

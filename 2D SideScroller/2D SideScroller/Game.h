@@ -1,4 +1,5 @@
 #pragma once
+#include "Menu.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "GUI.h"
@@ -26,10 +27,10 @@ private:
 
 	//Extras
 	int selectedItem;
-	bool endGame;
 	int musicStageInt;
 	int musicActionInt;
-
+	bool endGame;
+	bool startGame;
 	//functions
 	void initwindow();
 	void initPlayer();
