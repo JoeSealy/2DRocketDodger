@@ -11,14 +11,24 @@ private:
 	sf::RenderWindow window;
 	sf::Event event;
 	sf::VideoMode videomode;
-	sf::Music music;
 
-	int selectedItem;
+	//Music/soundeffects
+	sf::Music musicMenu;
+	sf::Music musicInGame;
+	sf::Music musicDeath;
+	sf::Music musicJumping;
+	sf::Music musicRunning;
+
+	//Objects
 	Player* player;
 	Enemy*  enemy;
 	GUI* gui;
 
+	//Extras
+	int selectedItem;
 	bool endGame;
+	int musicStageInt;
+	int musicActionInt;
 
 	//functions
 	void initwindow();
@@ -44,7 +54,6 @@ public:
 	//Enemy functions
 	void enemyUpdate();
 	void enemyRender();
-
 
 	//Player functions
 	void playerUpdate();

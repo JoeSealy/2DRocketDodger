@@ -27,6 +27,27 @@ void Game::initGUI()
 	this->gui = new GUI();
 }
 
+void Game::initMusic()
+{
+	musicMenu.openFromFile("Music/MusicMenu.wav");
+	musicMenu.setLoop(true);
+	musicMenu.setVolume(10);
+
+	musicInGame.openFromFile("Music/MusicInGame.wav");
+	musicInGame.setLoop(true);
+	musicInGame.setVolume(10);
+
+	musicDeath.openFromFile("Music/MusicDeath.wav");
+	musicDeath.setVolume(10);
+
+	musicRunning.openFromFile("Music/MusicRunning.wav");
+	musicRunning.setVolume(10);
+
+	musicJumping.openFromFile("Music/MusicJumping.wav");
+	musicJumping.setVolume(10);
+
+	this->musicStageInt = 1;
+}
 ///////////////////Public////////////////////
 
 //conscructor
@@ -51,7 +72,7 @@ Game::~Game()
 
 const bool Game::getWindowIsOpen() const
 {
-	return this->window.isOpen() && this->endGame == false;
+	return this->window.isOpen() /*&& this->endGame == false*/;
 }
 
 const bool & Game::getEndGame() const
@@ -174,7 +195,6 @@ bool Game::collisionCheck()
 }
 
 
-
 void Game::update()
 {
 	while (this->window.pollEvent(this->event))
@@ -202,12 +222,22 @@ void Game::update()
 		}
 
 	}
-	this->guiUpdate();
-	this->enemyUpdate();
-	this->playerUpdate();
-	this->collisionCheck();
-	this->collisionUpdate();
 
+
+
+	if (!this->endGame)
+	{
+		this->guiUpdate();
+		this->enemyUpdate();
+		this->playerUpdate();
+		this->collisionCheck();
+		this->collisionUpdate();
+		if (this->musicStageInt == 1)
+		{
+			this->musicInGame.play();
+			this->musicStageInt = 2;
+		}
+	}
 }
 
 void Game::render()
@@ -215,7 +245,6 @@ void Game::render()
 	//Game Objects rendered from here
 	 
 	this->window.clear(sf::Color(47, 79, 79, 255));
-
 	//Draws
 
 	this->guiRender();
@@ -224,18 +253,24 @@ void Game::render()
 
 	this->playerRender();
 
+	if (this->endGame) 
+	{
+		if (musicStageInt == 2) {
+			this->musicInGame.pause();
+			this->musicDeath.play();
+			this->musicStageInt = 3;
+		}
+
+		this->window.clear(sf::Color::Black);
+		this->window.draw(this->gui->endGameText);
+	}
+
 	this->window.display();
 
 
 }
 
-void Game::initMusic()
-{
-	//music.openFromFile("Music/Game Music.wav");
-	//music.setLoop(true);
-	//music.setVolume(10);
-	//music.play();
-}
+
 
 const sf::RenderWindow& Game::getWindow() const
 {

@@ -8,9 +8,7 @@ private:
 	sf::Text scoreText;
 	sf::Text livesText;
 
-	sf::Font timerFont;
-	sf::Font scoreFont;
-	sf::Font livesFont;
+	sf::Font Font;
 
 	sf::Clock clock;
 	
@@ -26,12 +24,15 @@ private:
 	void initClock();
 	void initScore();
 	void initLives();
+	void initEndGame();
 
 
 
 public:
 	GUI();
 	virtual ~GUI();
+
+	sf::Text endGameText;
 
 	void toClockString();
 	void toScoreString();

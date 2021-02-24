@@ -13,45 +13,46 @@ void GUI::initVariables()
 
 void GUI::initFont()
 {
-	if (!timerFont.loadFromFile("Fonts/Bebas-Regular.ttf")) {
-		std::cerr << "No font file found!" << std::endl;
-	}
-
-	if (!scoreFont.loadFromFile("Fonts/Bebas-Regular.ttf")) {
-		std::cerr << "No font file found!" << std::endl;
-	}
-
-	if (!livesFont.loadFromFile("Fonts/Bebas-Regular.ttf")) {
+	if (!Font.loadFromFile("Fonts/Bebas-Regular.ttf")) {
 		std::cerr << "No font file found!" << std::endl;
 	}
 }
 
 void GUI::initClock()
 {
-	this->timerText.setFont(timerFont);
+	this->timerText.setFont(this->Font);
 	this->timerText.setPosition(10, 0);
 	this->timerText.setCharacterSize(30);
-
 }
 
 void GUI::initScore()
 {
-	this->scoreText.setFont(scoreFont);
+	this->scoreText.setFont(this->Font);
 	this->scoreText.setPosition(500, 0);
 	this->scoreText.setCharacterSize(30);
 }
 
 void GUI::initLives()
 {
-	this->livesText.setFont(livesFont);
+	this->livesText.setFont(this->Font);
 	this->livesText.setPosition(250, 0);
 	this->livesText.setCharacterSize(30);
+}
+
+void GUI::initEndGame()
+{
+	this->endGameText.setFont(this->Font);
+	this->endGameText.setPosition(220, 180);
+	this->endGameText.setFillColor(sf::Color::Red);
+	this->endGameText.setCharacterSize(60);
+	this->endGameText.setString("YOU DIED");
 }
 
 float GUI::clockUpdate()
 {
 	return countUp = clock.getElapsedTime().asSeconds();
 }
+
 int GUI::scoreUpdate()
 {
 	this->clockUpdate();
@@ -67,7 +68,6 @@ int GUI::livesUpdate()
 	return this->lives;	
 }
 
-
 GUI::GUI()
 {
 	this->initVariables();
@@ -75,6 +75,7 @@ GUI::GUI()
 	this->initClock();
 	this->initScore();
 	this->initLives();
+	this->initEndGame();
 }
 
 GUI::~GUI()
@@ -104,7 +105,6 @@ void GUI::toLivesString()
 	this->livesStr = covertlives.str();
 	livesText.setString("lives: " + this->livesStr);
 }
-
 
 void GUI::update()
 {
