@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "GUI.h"
 #include "stdafx.h"
+#include "PowerUp.h"
 
 class Game
 {

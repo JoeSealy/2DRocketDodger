@@ -9,7 +9,7 @@ void Enemy::initVariables()
 
 void Enemy::initTexture()
 {
-	if (!this->texture.loadFromFile("Textures/missle_sheet.png"))
+	if (!this->texture.loadFromFile("Textures/enemy_sprite_sheet.png"))
 	{
 		std::cout << "Error::Player::Could not load player texture" << "\n";
 	}

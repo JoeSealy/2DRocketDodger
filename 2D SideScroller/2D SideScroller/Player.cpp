@@ -11,7 +11,7 @@ void Player::initVariables()
 //Private//
 void Player::initTexture()
 {
-	if (!this->texture.loadFromFile("Textures/player_sheet.png"))
+	if (!this->texture.loadFromFile("Textures/player_sprite_sheet.png"))
 	{
 		std::cout << "Error::Player::Could not load player texture" << "\n";
 	}

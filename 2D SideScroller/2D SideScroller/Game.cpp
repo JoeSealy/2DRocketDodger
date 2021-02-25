@@ -222,8 +222,8 @@ void Game::update()
 		}
 
 	}
-
-
+	//if (this->startGame)
+	//{
 
 	if (!this->endGame)
 	{
@@ -238,6 +238,8 @@ void Game::update()
 			this->musicStageInt = 2;
 		}
 	}
+
+	//}
 }
 
 void Game::render()

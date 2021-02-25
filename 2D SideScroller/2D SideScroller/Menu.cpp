@@ -7,3 +7,11 @@ Menu::Menu()
 Menu::~Menu()
 {
 }
+
+void Menu::moveUp()
+{
+}
+
+void Menu::moveDown()
+{
+}
