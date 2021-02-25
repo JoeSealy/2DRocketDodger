@@ -27,6 +27,11 @@ void Game::initGUI()
 	this->gui = new GUI();
 }
 
+void Game::initMenu()
+{
+	this->menu = new Menu();
+}
+
 void Game::initMusic()
 {
 	musicMenu.openFromFile("Music/MusicMenu.wav");
@@ -46,7 +51,7 @@ void Game::initMusic()
 	musicJumping.openFromFile("Music/MusicJumping.wav");
 	musicJumping.setVolume(10);
 
-	this->musicStageInt = 1;
+	this->musicStageInt = 0;
 }
 ///////////////////Public////////////////////
 
@@ -54,6 +59,7 @@ void Game::initMusic()
 Game::Game()
 {
 	this->initwindow();
+	this->initMenu();
 	this->initPlayer();
 	this->initEnemy();
 	this->initGUI();
@@ -63,6 +69,7 @@ Game::Game()
 //deconstructor
 Game::~Game()
 {
+	delete this->menu;
 	delete this->enemy;
 	delete this->player;
 	delete this->gui;
@@ -81,6 +88,7 @@ const bool & Game::getEndGame() const
 }
 
 //Game functions
+
 void Game::playerUpdate()
 {
 	this->player->update();
@@ -115,6 +123,16 @@ void Game::guiRender()
 	{
 		this->endGame = true;
 	}
+}
+
+void Game::MenuUpdate()
+{
+		this->menu->update();
+}
+
+void Game::MenuRender()
+{
+		this->menu->render(this->window);
 }
 
 void Game::collisionUpdate()
@@ -206,40 +224,76 @@ void Game::update()
 
 		case sf::Event::KeyPressed:
 			if (this->event.key.code == sf::Keyboard::Escape)
-				this->window.close();
-			break;
-		case sf::Event::KeyReleased:
-			if (
-				this->event.key.code == sf::Keyboard::W ||
-				this->event.key.code == sf::Keyboard::A ||
-				this->event.key.code == sf::Keyboard::S ||
-				this->event.key.code == sf::Keyboard::D
-				)
 			{
-				this->player->resetAnimTimer();
+				this->window.close();
+			}
+
+			if (this->event.key.code == sf::Keyboard::W && !this->menu->startGame)
+			{
+				this->menu->moveUp();
+			}
+
+			if (this->event.key.code == sf::Keyboard::S & !this->menu->startGame)
+			{
+				this->menu->moveDown();
 			}
 			break;
+
+
+		case sf::Event::KeyReleased:
+			switch (event.key.code)
+			{
+				case sf::Keyboard::W || sf::Keyboard::A || sf::Keyboard::S || sf::Keyboard::D :
+					
+					this->player->resetAnimTimer();
+					
+					break;
+
+				case sf::Keyboard::Return:
+
+					switch (this->menu->getPressedItem())
+					{
+					case 1:
+						this->menu->startGame = true;
+						break;
+					case 2:
+
+						break;
+					case 3:
+						window.close();
+						break;
+					}
+			}
 		}
 
 	}
-	//if (this->startGame)
-	//{
 
-	if (!this->endGame)
-	{
-		this->guiUpdate();
-		this->enemyUpdate();
-		this->playerUpdate();
-		this->collisionCheck();
-		this->collisionUpdate();
-		if (this->musicStageInt == 1)
+	
+		if (!this->endGame)
 		{
-			this->musicInGame.play();
-			this->musicStageInt = 2;
+			if (this->menu->startGame == false) {
+				this->MenuUpdate();
+				if (this->musicStageInt == 0)
+				{
+					this->musicMenu.play();
+					this->musicStageInt = 1;
+				}
+			}
+			else
+			{
+				this->guiUpdate();
+				this->enemyUpdate();
+				this->playerUpdate();
+				this->collisionCheck();
+				this->collisionUpdate();
+				if (this->musicStageInt == 1)
+				{
+					this->musicInGame.play();
+					this->musicStageInt = 2;
+				}
+			}
 		}
-	}
-
-	//}
+	
 }
 
 void Game::render()
@@ -248,12 +302,10 @@ void Game::render()
 	 
 	this->window.clear(sf::Color(47, 79, 79, 255));
 	//Draws
-
-
-
-
-	//if (this->startGame)
-	//{
+	if (this->menu->startGame == false) {
+		this->MenuRender();
+	}
+	else{
 		this->guiRender();
 
 		this->enemyRender();
@@ -271,7 +323,7 @@ void Game::render()
 			this->window.clear(sf::Color::Black);
 			this->window.draw(this->gui->endGameText);
 		}
-	//}
+	}
 	this->window.display();
 
 

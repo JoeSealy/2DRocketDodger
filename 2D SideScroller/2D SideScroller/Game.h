@@ -25,18 +25,20 @@ private:
 	Player* player;
 	Enemy*  enemy;
 	GUI* gui;
+	Menu* menu;
 
 	//Extras
 	int selectedItem;
 	int musicStageInt;
 	int musicActionInt;
 	bool endGame;
-	bool startGame;
+
 	//functions
 	void initwindow();
 	void initPlayer();
 	void initEnemy();
 	void initGUI();
+	void initMenu();
 
 
 public:
@@ -64,6 +66,10 @@ public:
 	//GUI functions
 	void guiUpdate();
 	void guiRender();
+
+	//Menu functions
+	void MenuUpdate();
+	void MenuRender();
 
 	//Game functions
 	void update();
