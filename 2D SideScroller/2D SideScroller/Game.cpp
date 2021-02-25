@@ -289,6 +289,7 @@ void Game::update()
 				if (this->musicStageInt == 1)
 				{
 					this->musicInGame.play();
+					this->musicMenu.pause();
 					this->musicStageInt = 2;
 				}
 			}
