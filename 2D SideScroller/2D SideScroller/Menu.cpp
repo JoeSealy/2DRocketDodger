@@ -4,13 +4,24 @@
 
 void Menu::initMenuFont()
 {
-	if (!Font.loadFromFile("Fonts/Bebas-Regular.ttf"))
+	if (!this->Font.loadFromFile("Fonts/Bebas-Regular.ttf"))
 	{
 		std::cerr << "No font file found!" << std::endl;
 	}
 }
 
-void Menu::initvariable()
+void Menu::initBackground()
+{
+	if (!this->backgroundTexture.loadFromFile("Textures/background_Menu.png"))
+	{
+		std::cerr << "No font file found!" << std::endl;
+	}
+	this->backgroundSprite.setTexture(this->backgroundTexture);
+	this->backgroundSprite.setScale(0.5f, 0.5f);
+
+}
+
+void Menu::initVariable()
 {
 	this->startGame = false;
 }
@@ -46,7 +57,8 @@ void Menu::initMenuText()
 
 Menu::Menu()
 {
-	this->initvariable();
+	this->initBackground();
+	this->initVariable();
 	this->initMenuFont();
 	this->initMenuText();
 }
@@ -88,6 +100,7 @@ void Menu::update()
 
 void Menu::render(sf::RenderTarget & rTarget)
 {
+	rTarget.draw(backgroundSprite);
 	for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)
 	{
 		rTarget.draw(menuText[i]);

@@ -53,12 +53,24 @@ void Game::initMusic()
 
 	this->musicStageInt = 0;
 }
+
+void Game::initBackground()
+{
+	if (!this->backgroundTexture.loadFromFile("Textures/background_InGame.png"))
+	{
+		std::cerr << "No font file found!" << std::endl;
+	}
+	this->backgroundSprite.setTexture(this->backgroundTexture);
+	this->backgroundSprite.setScale(.5f, .9f);
+
+}
 ///////////////////Public////////////////////
 
 //conscructor
 Game::Game()
 {
 	this->initwindow();
+	this->initBackground();
 	this->initMenu();
 	this->initPlayer();
 	this->initEnemy();
@@ -307,6 +319,8 @@ void Game::render()
 		this->MenuRender();
 	}
 	else{
+		this->window.draw(backgroundSprite);
+
 		this->guiRender();
 
 		this->enemyRender();

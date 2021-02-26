@@ -21,6 +21,10 @@ private:
 	sf::Music musicJumping;
 	sf::Music musicRunning;
 
+	//background
+	sf::Texture backgroundTexture;
+	sf::Sprite backgroundSprite;
+
 	//Objects
 	Player* player;
 	Enemy*  enemy;
@@ -35,6 +39,7 @@ private:
 
 	//functions
 	void initwindow();
+	void initBackground();
 	void initPlayer();
 	void initEnemy();
 	void initGUI();

@@ -7,13 +7,17 @@ class Menu
 {
 private:
 
+
+	sf::Texture backgroundTexture;
+	sf::Sprite backgroundSprite;
 	sf::Font Font;
 	sf::Text menuText[MAX_NUMBER_OF_ITEMS];
 	sf::Text titleText;
 
 	int selectedItemIndex;
 
-	void initvariable();
+	void initBackground();
+	void initVariable();
 	void initMenuText();
 	void initMenuFont();
 
