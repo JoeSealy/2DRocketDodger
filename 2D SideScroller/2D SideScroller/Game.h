@@ -30,6 +30,7 @@ private:
 	Enemy*  enemy;
 	GUI* gui;
 	Menu* menu;
+	PowerUp* powerup;
 
 	//Extras
 	int selectedItem;
@@ -43,6 +44,7 @@ private:
 	void initPlayer();
 	void initEnemy();
 	void initGUI();
+	void initPowerUp();
 	void initMenu();
 
 
@@ -75,6 +77,10 @@ public:
 	//Menu functions
 	void MenuUpdate();
 	void MenuRender();
+
+	//Powerup functions
+	void powerUpUpdate();
+	void powerUpRender();
 
 	//Game functions
 	void update();

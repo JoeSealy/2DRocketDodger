@@ -32,6 +32,11 @@ void Game::initMenu()
 	this->menu = new Menu();
 }
 
+void Game::initPowerUp()
+{
+	this->powerup= new PowerUp();
+}
+
 void Game::initMusic()
 {
 	musicMenu.openFromFile("Music/MusicMenu.wav");
@@ -75,6 +80,7 @@ Game::Game()
 	this->initPlayer();
 	this->initEnemy();
 	this->initGUI();
+	this->initPowerUp();
 	this->initMusic();
 }
 
@@ -144,6 +150,16 @@ void Game::MenuUpdate()
 void Game::MenuRender()
 {
 		this->menu->render(this->window);
+}
+
+void Game::powerUpUpdate()
+{
+	this->powerup->update();
+}
+
+void Game::powerUpRender()
+{
+	this->powerup->render(this->window);
 }
 
 void Game::collisionUpdate()
@@ -292,6 +308,7 @@ void Game::update()
 		else
 		{
 			this->guiUpdate();
+			this->powerUpUpdate();
 			this->enemyUpdate();
 			this->playerUpdate();
 			this->collisionCheck();
@@ -316,11 +333,13 @@ void Game::render()
 	else{
 		this->window.draw(backgroundSprite);
 
-		this->guiRender();
+		this->powerUpRender();
 
 		this->enemyRender();
 
 		this->playerRender();
+
+		this->guiRender();
 
 		if (this->endGame)
 		{

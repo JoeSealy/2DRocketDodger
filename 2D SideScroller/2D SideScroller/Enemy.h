@@ -43,7 +43,6 @@ public:
 	void positionSet(const float x, const float y);
 	int rocketNumber;
 	float randYfloat();
-	void resetAnimTimer();
 	void updateAnimation();
 	void updateRocketPhysics();
 	void update();

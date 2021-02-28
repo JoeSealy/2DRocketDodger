@@ -129,12 +129,6 @@ float Enemy::randYfloat()
 	return randY;
 }
 
-void Enemy::resetAnimTimer()
-{
-	this->stateTimer.restart();
-	this->animationDiff = true;
-}
-
 void Enemy::updateAnimation()
 {
 	if (this->animState == ENEMY_ANIMATION_STATES::SHORT)
@@ -178,9 +172,9 @@ void Enemy::update()
 	this->updateRocketPhysics();
 }
 
-void Enemy::render(sf::RenderTarget & Target)
+void Enemy::render(sf::RenderTarget & rTarget)
 {
 	for (int i = 0.f; i < rocket_list.size(); i++) {
-		Target.draw(this->rocket_list[i]);
+		rTarget.draw(this->rocket_list[i]);
 	}
 }

@@ -3,23 +3,18 @@
 #include "GUI.h"
 class PowerUp
 {
-	
 	private:
 		sf::Sprite powerUp;
 		sf::Texture texture;
 		sf::Event event;
-		sf::IntRect currentFrame;
-		sf::Clock stateTimer;
 		sf::Vector2f velocity;
 
 		GUI* gui;
 
-		float randY;
+		float randX;
 		float Speed;		//speed
 		float minSpeed;		//Lowest movement speed needs powerup
 		float maxSpeed;
-		short animState;	//what state the character is in
-		bool animationDiff;	//Changes rocket size
 
 		void initGUI();
 		void initVariables();
@@ -35,11 +30,8 @@ class PowerUp
 		const sf::FloatRect windowBounds() const;
 
 		void positionSet(const float x, const float y);
-		int rocketNumber;
-		float randYfloat();
-		void resetAnimTimer();
-		void updateAnimation();
-		void updateRocketPhysics();
+		float randXfloat();
+		void updatePowerUpPhysics();
 		void update();
 		void render(sf::RenderTarget& rTarget);
 };
