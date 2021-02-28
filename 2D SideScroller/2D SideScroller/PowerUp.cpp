@@ -23,7 +23,7 @@ void PowerUp::initSprite()
 	this->currentFrame = sf::IntRect(0, 0, 640, 550);
 	this->powerUp.setTextureRect(this->currentFrame);
 	this->powerUp.setScale(0.1f, 0.1f);
-	this->powerUp.setPosition(this->randXfloat(), 0.f);
+	this->powerUp.setPosition(this->randXint(), -100.f);
 
 }
 
@@ -57,23 +57,31 @@ const sf::FloatRect PowerUp::windowBounds() const
 
 void PowerUp::positionSet(const float x, const float y)
 {
-	return this->powerUp.setPosition(this->randXfloat(), y);
+	return this->powerUp.setPosition(this->randXint(), y);
 }
 
-float PowerUp::randXfloat()
+int PowerUp::randXint()
 {
 	randX = std::rand() % 480 + 80;
 	return randX;
 }
 
+int PowerUp::randPowerUp()
+{
+	return 0;
+}
+
 void PowerUp::updatePowerUpPhysics()
 {
 	this->gui->clockUpdate();
+	if (this->gui->clockUpdate() > 5.f) {
+		this->velocity.y = 1.f;
+	}
+	this->powerUp.move(this->velocity);
 }
 
 void PowerUp::update()
 {
-	this->updateAnimation();
 	this->updatePowerUpPhysics();
 }
 

@@ -8,10 +8,11 @@ class PowerUp
 		sf::Texture texture;
 		sf::Event event;
 		sf::Vector2f velocity;
+		sf::IntRect currentFrame;
 
 		GUI* gui;
 
-		float randX;
+		int randX;
 		float Speed;		//speed
 		float minSpeed;		//Lowest movement speed needs powerup
 		float maxSpeed;
@@ -26,11 +27,14 @@ class PowerUp
 		PowerUp();
 		virtual ~PowerUp();
 
+		int randXint();
+		int randPowerUp();
+
 		const sf::Vector2f getPosition() const;
 		const sf::FloatRect windowBounds() const;
-
 		void positionSet(const float x, const float y);
-		float randXfloat();
+
+		
 		void updatePowerUpPhysics();
 		void update();
 		void render(sf::RenderTarget& rTarget);
