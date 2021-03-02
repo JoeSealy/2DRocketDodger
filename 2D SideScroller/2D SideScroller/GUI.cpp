@@ -84,11 +84,13 @@ void GUI::powerUpdate()
 {
 	if (this->invincibility)
 	{
+		std::srand(time(0));
 		this->powerTime = this->powerClock.getElapsedTime().asSeconds();
 		this->PowerUpText.setString("Invincibilty ON ");
 
-		if (this->powerTime  >= 10)
+		if (this->powerTime  >= 15)
 		{
+			this->PowerUpText.setString("");
 			this->powerClock.restart();
 			this->invincibility = false;
 		}
@@ -96,10 +98,12 @@ void GUI::powerUpdate()
 
 	if (this->addLivesBool) 
 	{
+		std::srand(time(0));
 		this->powerTime = this->powerClock.getElapsedTime().asSeconds();
 		this->PowerUpText.setString("Lives Added!");
-		if (this->powerTime >= 2)
+		if (this->powerTime >= 3)
 		{
+			this->PowerUpText.setString("");
 			this->powerClock.restart();
 			this->addLivesBool = false;
 		}
@@ -107,10 +111,12 @@ void GUI::powerUpdate()
 
 	if (this->addScoreBool) 
 	{
+		std::srand(time(0));
 		this->powerTime = this->powerClock.getElapsedTime().asSeconds();
 		this->PowerUpText.setString("Plus 200 Score");
-		if (this->powerTime >= 2)
+		if (this->powerTime >= 3)
 		{
+			this->PowerUpText.setString("");
 			this->powerClock.restart();
 			this->addScoreBool = false;
 		}
@@ -118,10 +124,12 @@ void GUI::powerUpdate()
 
 	if (this->slowedRocketBool)
 	{
+		std::srand(time(0));
 		this->powerTime = this->powerClock.getElapsedTime().asSeconds();
 		this->PowerUpText.setString("Rockets Slowed");
 		if (this->powerTime >= 10)
 		{
+			this->PowerUpText.setString("");
 			this->powerClock.restart();
 			this->slowedRocketBool = false;
 		}

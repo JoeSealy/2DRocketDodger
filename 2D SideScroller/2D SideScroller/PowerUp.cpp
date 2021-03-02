@@ -35,6 +35,7 @@ void PowerUp::initPhysics()
 
 PowerUp::PowerUp()
 {
+	this->initVariables();
 	this->initGUI();
 	this->initTexture();
 	this->initSprite();
@@ -74,14 +75,27 @@ int PowerUp::randPowerUp()
 	return randPowerUpInt;
 }
 
+int PowerUp::randClockInt()
+{
+	randDropClockInt = std::rand() % (20 - 10) + 10;
+	return randDropClockInt;
+}
+
 void PowerUp::updatePowerUpPhysics()
 {
-	if (this->gui->clockUpdate() > 10.f) {
 		this->velocity.y = 1.f;
+
 		if (this->powerUpDrop){
+			std::srand(time(0));
 			this->velocity.y = 0.f;
+			this->dropClockInt = dropClock.getElapsedTime().asSeconds();
+			this->randClockInt();
+			if (this->dropClockInt >= this->randClockInt())
+			{
+				this->powerUpDrop = false;
+			}
 		}
-	}
+
 	this->powerUp.move(this->velocity);
 }
 

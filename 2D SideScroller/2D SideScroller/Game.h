@@ -18,8 +18,6 @@ private:
 	sf::Music musicMenu;
 	sf::Music musicInGame;
 	sf::Music musicDeath;
-	sf::Music musicJumping;
-	sf::Music musicRunning;
 
 	//background
 	sf::Texture backgroundTexture;
@@ -37,7 +35,7 @@ private:
 	int musicStageInt;
 	int musicActionInt;
 	bool endGame;
-	bool invicibility; 
+
 
 	float deltaX[6], deltaY[6], intersectX[6], intersectY[6];
 	float powerUpDeltaX, powerUpDeltaY, powerUpIntersectX, powerUpIntersectY;

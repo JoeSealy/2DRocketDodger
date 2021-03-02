@@ -17,10 +17,13 @@ class PowerUp
 		GUI* gui;
 		
 		//Variables
+		int randDropClockInt;
+		int dropClockInt;
 		int randX;
 		float Speed;		//speed
 		float minSpeed;		//Lowest movement speed needs powerup
 		float maxSpeed;
+
 		//Functions
 		void initGUI();
 		void initVariables();
@@ -38,11 +41,14 @@ class PowerUp
 		bool powerUpDrop;
 
 		//Functions
+		int randClockInt();
+		int randPowerUp();
 		int randXint();
+
 		const sf::Vector2f getPosition() const;
 		const sf::FloatRect windowBounds() const;
+
 		void positionSet(const float x, const float y);
-		int randPowerUp();
 		void updatePowerUpPhysics();
 		void update();
 		void render(sf::RenderTarget& rTarget);

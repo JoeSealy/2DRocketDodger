@@ -52,12 +52,6 @@ void Game::initMusic()
 	musicDeath.openFromFile("Music/MusicDeath.wav");
 	musicDeath.setVolume(10);
 
-	musicRunning.openFromFile("Music/MusicRunning.wav");
-	musicRunning.setVolume(10);
-
-	musicJumping.openFromFile("Music/MusicJumping.wav");
-	musicJumping.setVolume(10);
-
 	this->musicStageInt = 0;
 }
 
@@ -216,12 +210,14 @@ void Game::collisionUpdate()
 				this->window.getSize().x, this->enemy->rocket_list[i].getPosition().y);
 		}
 	}
+
 	//-------------------------------------------------POWERUP COLLISION WITH WINDOW------------------------------------------------------------
-	if (this->powerup->getPosition().y + this->powerup->windowBounds().height < this->window.getSize().y)
+	if (this->powerup->getPosition().y + this->powerup->windowBounds().height > this->window.getSize().y)
 	{
 		this->powerup->positionSet(this->powerup->getPosition().x, -100.f);
 		this->powerup->powerUpDrop = true;
 	}
+
 }
 	
 
@@ -289,54 +285,70 @@ void Game::update()
 	while (this->window.pollEvent(this->event))
 	{
 		switch (this->event.type) {
-			case sf::Event::Closed:
+		case sf::Event::Closed:
+			this->window.close();
+			break;
+
+		case sf::Event::KeyPressed:
+			if (this->event.key.code == sf::Keyboard::Escape)
+			{
 				this->window.close();
-				break;
+			}
 
-			case sf::Event::KeyPressed:
-				if (this->event.key.code == sf::Keyboard::Escape)
+			if (this->event.key.code == sf::Keyboard::W && !this->menu->startGame)
+			{
+				this->menu->moveUp();
+			}
+
+			if (this->event.key.code == sf::Keyboard::S & !this->menu->startGame)
+			{
+				this->menu->moveDown();
+			}
+			break;
+		case sf::Event::KeyReleased:
+
+			if (this->event.key.code == sf::Keyboard::W) {
+				this->player->resetAnimTimer();
+				this->player->jumpSound = false;
+				this->player->musicJumping.stop();
+			}
+
+			if (this->event.key.code == sf::Keyboard::A)
+			{
+				this->player->resetAnimTimer();
+				this->player->runSound = false;
+				this->player->musicRunning.stop();
+			}
+
+			if (this->event.key.code == sf::Keyboard::D)
+			{
+				this->player->resetAnimTimer();
+				this->player->runSound = false;
+				this->player->musicRunning.stop();
+			}
+
+			if (this->event.key.code == sf::Keyboard::S)
+			{
+				this->player->resetAnimTimer();
+			}
+
+			if (this->event.key.code == sf::Keyboard::Return)
+			{
+				switch (this->menu->getPressedItem())
 				{
-					this->window.close();
+				case 1:
+					this->menu->startGame = true;
+					break;
+				case 2:
+					//options
+					break;
+				case 3:
+					window.close();
+					break;
 				}
+			}
 
-				if (this->event.key.code == sf::Keyboard::W && !this->menu->startGame)
-				{
-					this->menu->moveUp();
-				}
-
-				if (this->event.key.code == sf::Keyboard::S & !this->menu->startGame)
-				{
-					this->menu->moveDown();
-				}
-				break;
-
-
-			case sf::Event::KeyReleased:
-				switch (event.key.code)
-				{
-					case sf::Keyboard::W || sf::Keyboard::A || sf::Keyboard::S || sf::Keyboard::D :
-					
-						this->player->resetAnimTimer();
-					
-						break;
-
-					case sf::Keyboard::Return:
-
-						switch (this->menu->getPressedItem())
-						{
-						case 1:
-							this->menu->startGame = true;
-							break;
-						case 2:
-							//options
-							break;
-						case 3:
-							window.close();
-							break;
-						}
-				}
 		}
-
 	}
 	
 	if (!this->endGame)

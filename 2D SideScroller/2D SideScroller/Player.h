@@ -8,10 +8,12 @@ private:
 	sf::Texture texture;
 	sf::Event event;
 	sf::IntRect currentFrame;
-	sf::Clock stateTimer;
 	sf::Vector2f velocity;
-	sf::Music Running;
-	sf::Music Jumping;
+
+	sf::Clock stateTimer;
+
+	
+
 
 	float maxGravSpeed;	
 	float gravity;		//gravity speed
@@ -25,6 +27,8 @@ private:
 	bool music;
 	short animState;	//what state the character is in
 
+
+
 	void initVariables();
 	void initTexture();
 	void initSprite();
@@ -36,10 +40,16 @@ public:
 	Player();
 	virtual ~Player();
 
+	sf::Music musicRunning;
+	sf::Music musicJumping;
+	bool jumpSound;
+	bool runSound;
+
 	const sf::Vector2f getPosition()const;
 	const bool& animSwitch();
 	const sf::FloatRect windowBounds() const;
 
+	void musicPlay();
 	void velocityReset();
 	void positionSet(const float x, const float y);
 

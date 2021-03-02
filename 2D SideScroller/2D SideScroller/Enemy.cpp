@@ -93,26 +93,25 @@ const sf::FloatRect Enemy::windowBounds() const
 
 void Enemy::positionSet(const float x, const float y)
 {
-	this->randYfloat();
 	switch (rocketNumber)
 	{
 	case 0:
-		return this->rocket_list[0].setPosition(x, randY);
+		return this->rocket_list[0].setPosition(x, this->randYfloat());
 		break;
 	case 1:
-		return this->rocket_list[1].setPosition(x, randY);
+		return this->rocket_list[1].setPosition(x, this->randYfloat());
 		break;
 	case 2:
-		return this->rocket_list[2].setPosition(x, randY);
+		return this->rocket_list[2].setPosition(x, this->randYfloat());
 		break;
 	case 3:
-		return this->rocket_list[3].setPosition(x, randY);
+		return this->rocket_list[3].setPosition(x, this->randYfloat());
 		break;
 	case 4:
-		return this->rocket_list[4].setPosition(x, randY);
+		return this->rocket_list[4].setPosition(x, this->randYfloat());
 		break;
 	case 5:
-		return this->rocket_list[5].setPosition(x, randY);
+		return this->rocket_list[5].setPosition(x, this->randYfloat());
 		break;
 
 	}
@@ -154,10 +153,12 @@ void Enemy::updateRocketPhysics()
 		this->velocity.x = minSpeed - 1;
 	}
 
-	 const int amountRocket(1.f + fmod(this->gui->countUp, 500.f));
-	 for (int i = 0.f; i < ((amountRocket < rocket_list.size() + 1.f) ? amountRocket : rocket_list.size()); i++) {
-		 this->rocket_list[i].move(this->velocity);
-	 }
+	const int amountRocket(1.f + fmod(this->gui->countUp, 500.f));
+	for (int i = 0.f; i < ((amountRocket < rocket_list.size() + 1.f) ? amountRocket : rocket_list.size()); i++)
+	{
+		this->rocket_list[i].move(this->velocity);
+
+	}
 
 }
 
