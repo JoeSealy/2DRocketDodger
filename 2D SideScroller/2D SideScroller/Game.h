@@ -37,6 +37,10 @@ private:
 	int musicStageInt;
 	int musicActionInt;
 	bool endGame;
+	bool invicibility; 
+
+	float deltaX[6], deltaY[6], intersectX[6], intersectY[6];
+	float powerUpDeltaX, powerUpDeltaY, powerUpIntersectX, powerUpIntersectY;
 
 	//functions
 	void initwindow();
@@ -83,6 +87,7 @@ public:
 	void powerUpRender();
 
 	//Game functions
+	void powerups();
 	void update();
 	void render();
 	void initMusic();

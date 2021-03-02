@@ -7,6 +7,7 @@ void PowerUp::initGUI()
 
 void PowerUp::initVariables()
 {
+	this->powerUpDrop = false;
 }
 
 void PowerUp::initTexture()
@@ -57,7 +58,8 @@ const sf::FloatRect PowerUp::windowBounds() const
 
 void PowerUp::positionSet(const float x, const float y)
 {
-	return this->powerUp.setPosition(this->randXint(), y);
+	this->randXint();
+	return this->powerUp.setPosition(randX, y);
 }
 
 int PowerUp::randXint()
@@ -68,14 +70,17 @@ int PowerUp::randXint()
 
 int PowerUp::randPowerUp()
 {
-	return 0;
+	randPowerUpInt = std::rand() % 3;
+	return randPowerUpInt;
 }
 
 void PowerUp::updatePowerUpPhysics()
 {
-	this->gui->clockUpdate();
-	if (this->gui->clockUpdate() > 5.f) {
+	if (this->gui->clockUpdate() > 10.f) {
 		this->velocity.y = 1.f;
+		if (this->powerUpDrop){
+			this->velocity.y = 0.f;
+		}
 	}
 	this->powerUp.move(this->velocity);
 }

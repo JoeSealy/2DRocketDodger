@@ -4,6 +4,8 @@
 
 
 
+
+
 void Game::initwindow()
 {
 	
@@ -91,6 +93,7 @@ Game::~Game()
 	delete this->enemy;
 	delete this->player;
 	delete this->gui;
+	delete this->powerup;
 }
 
 //accessors
@@ -144,12 +147,12 @@ void Game::guiRender()
 
 void Game::MenuUpdate()
 {
-		this->menu->update();
+	this->menu->update();
 }
 
 void Game::MenuRender()
 {
-		this->menu->render(this->window);
+	this->menu->render(this->window);
 }
 
 void Game::powerUpUpdate()
@@ -213,31 +216,73 @@ void Game::collisionUpdate()
 				this->window.getSize().x, this->enemy->rocket_list[i].getPosition().y);
 		}
 	}
+	//-------------------------------------------------POWERUP COLLISION WITH WINDOW------------------------------------------------------------
+	if (this->powerup->getPosition().y + this->powerup->windowBounds().height < this->window.getSize().y)
+	{
+		this->powerup->positionSet(this->powerup->getPosition().x, -100.f);
+		this->powerup->powerUpDrop = true;
+	}
 }
 	
 
 bool Game::collisionCheck()
 {
-	float deltaX[6], deltaY[6], intersectX[6], intersectY[6];
+	if (this->gui->invincibility == false)
+	{
+		for (int i(0); i < 6; i++) {
+			deltaX[i] = this->player->getPosition().x - this->enemy->rocket_list[i].getPosition().x;
+			deltaY[i] = this->player->getPosition().y - this->enemy->rocket_list[i].getPosition().y;
+			intersectX[i] = abs(deltaX[i]) - ((this->enemy->windowBounds().width / 2.f) + (this->player->windowBounds().width / 2.f));
+			intersectY[i] = abs(deltaY[i]) - ((this->enemy->windowBounds().height / 2.f) + (this->player->windowBounds().height / 2.f));
 
-	for (int i(0); i < 6; i++) {
-		deltaX[i] = this->player->getPosition().x - this->enemy->rocket_list[i].getPosition().x;
-		deltaY[i] = this->player->getPosition().y - this->enemy->rocket_list[i].getPosition().y;
-		intersectX[i] = abs(deltaX[i]) - ((this->enemy->windowBounds().width / 2.f) + (this->player->windowBounds().width / 2.f));
-		intersectY[i] = abs(deltaY[i]) - ((this->enemy->windowBounds().height / 2.f) + (this->player->windowBounds().height / 2.f));
+			if (intersectX[i] < 0.f && intersectY[i] < 0.f)
+			{
+				this->gui->lives -= 1;
+				this->enemy->rocketNumber = i;
+				this->enemy->positionSet(this->window.getSize().x, this->enemy->rocket_list[i].getPosition().y);
 
-		if (intersectX[i] < 0.f && intersectY[i] < 0.f)
-		{
-			this->gui->lives -= 1;
-			this->enemy->rocketNumber = i;
-			this->enemy->positionSet(this->window.getSize().x, this->enemy->rocket_list[i].getPosition().y);
-
-			return true;
+				return true;
+			}
 		}
 	}
+
+	powerUpDeltaX = this->player->getPosition().x - this->powerup->getPosition().x;
+	powerUpDeltaY = this->player->getPosition().y - this->powerup->getPosition().y;
+	powerUpIntersectX = abs(powerUpDeltaX) - ((this->powerup->windowBounds().width / 2.f) + (this->player->windowBounds().width / 2.f));
+	powerUpIntersectY = abs(powerUpDeltaY) - ((this->powerup->windowBounds().height / 2.f) + (this->player->windowBounds().height / 2.f));
+
+	if (powerUpIntersectX < 0.f && powerUpIntersectY < 0.f)
+	{
+		this->powerups();
+		this->powerup->positionSet(this->powerup->getPosition().x, -100.f);
+		this->powerup->powerUpDrop = true;
+		return true;
+	}
+
 	return false;
 }
 
+void Game::powerups()
+{
+	switch (this->powerup->randPowerUp())
+	{
+	case 0:
+		this->gui->addScoreBool = true;
+		this->gui->score += 200;
+		break;
+	case 1:
+		this->gui->invincibility = true;
+		break;
+	case 2:
+		this->gui->slowedRocketBool = true;
+		this->enemy->slowSpeed;
+		break;
+	case 3:
+		this->gui->addLivesBool = true;
+		this->gui->lives += 5;
+		break;
+	}
+}
 
 void Game::update()
 {
@@ -283,7 +328,7 @@ void Game::update()
 							this->menu->startGame = true;
 							break;
 						case 2:
-
+							//options
 							break;
 						case 3:
 							window.close();

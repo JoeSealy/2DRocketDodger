@@ -93,31 +93,26 @@ const sf::FloatRect Enemy::windowBounds() const
 
 void Enemy::positionSet(const float x, const float y)
 {
+	this->randYfloat();
 	switch (rocketNumber)
 	{
 	case 0:
-		this->randYfloat();
-		return this->rocket_list[0].setPosition(x, this->randYfloat());
+		return this->rocket_list[0].setPosition(x, randY);
 		break;
 	case 1:
-		this->randYfloat();
-		return this->rocket_list[1].setPosition(x, this->randYfloat());
+		return this->rocket_list[1].setPosition(x, randY);
 		break;
 	case 2:
-		this->randYfloat();
-		return this->rocket_list[2].setPosition(x, this->randYfloat());
+		return this->rocket_list[2].setPosition(x, randY);
 		break;
 	case 3:
-		this->randYfloat();
-		return this->rocket_list[3].setPosition(x, this->randYfloat());
+		return this->rocket_list[3].setPosition(x, randY);
 		break;
 	case 4:
-		this->randYfloat();
-		return this->rocket_list[4].setPosition(x, this->randYfloat());
+		return this->rocket_list[4].setPosition(x, randY);
 		break;
 	case 5:
-		this->randYfloat();
-		return this->rocket_list[5].setPosition(x, this->randYfloat());
+		return this->rocket_list[5].setPosition(x, randY);
 		break;
 
 	}
@@ -155,8 +150,8 @@ void Enemy::updateRocketPhysics()
 {
 	this->gui->clockUpdate();
 	this->velocity.x = minSpeed;
-	if (this->gui->clockUpdate() > 30.f) {
-		this->velocity.x = minSpeed + 0.5;
+	if (this->gui->clockUpdate() > 10.f) {
+		this->velocity.x = minSpeed - 1;
 	}
 
 	 const int amountRocket(1.f + fmod(this->gui->countUp, 500.f));

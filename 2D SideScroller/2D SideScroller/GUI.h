@@ -7,17 +7,19 @@ private:
 	sf::Text timerText;
 	sf::Text scoreText;
 	sf::Text livesText;
+	sf::Text PowerUpText;
 
 	sf::Font Font;
 
 	sf::Clock clock;
+	sf::Clock powerClock;
 	
 	std::string countUpStr;
 	std::string scoreUpStr;
 	std::string livesStr;
 
-	int score;
 	int scoreUp;
+	int powerTime;
 
 	void initVariables();
 	void initFont();
@@ -25,6 +27,7 @@ private:
 	void initScore();
 	void initLives();
 	void initEndGame();
+	void initpowerUp();
 
 
 
@@ -38,9 +41,17 @@ public:
 	void toScoreString();
 	void toLivesString();
 
+
+	bool invincibility;
+	bool addLivesBool;
+	bool addScoreBool;
+	bool slowedRocketBool;
+
 	float countUp;
 	int lives;
+	int score;
 	
+	void powerUpdate();
 	float clockUpdate();
 	int scoreUpdate();
 	int livesUpdate();

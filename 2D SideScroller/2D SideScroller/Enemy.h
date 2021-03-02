@@ -18,9 +18,8 @@ private:
 	int shortArrayInt;
 	float animShortArray [12];
 	float accel;		//Acceleration
-	float decel;		//Deceleration
 	float Speed;		//speed
-	float minSpeed;		//Lowest movement speed needs powerup
+	float minSpeed;
 	float maxSpeed;
 	short animState;	//what state the character is in
 	bool animationDiff;	//Changes rocket size
@@ -39,6 +38,9 @@ public:
 
 	const sf::Vector2f getPosition() const;
 	const sf::FloatRect windowBounds() const;
+
+	float slowSpeed;
+
 
 	void positionSet(const float x, const float y);
 	int rocketNumber;

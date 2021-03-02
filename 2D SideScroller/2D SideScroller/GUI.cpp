@@ -5,10 +5,15 @@
 
 void GUI::initVariables()
 {
+	this->powerTime = 0;
 	this->countUp = 0.f;
-	this->score = 0.f;
+	this->score = 0;
 	this->scoreUp = 5.f;
 	this->lives = 5.f;
+	this->invincibility = false;
+	this->addLivesBool = false;
+	this->addScoreBool = false;
+	this->slowedRocketBool = false;
 }
 
 void GUI::initFont()
@@ -48,6 +53,14 @@ void GUI::initEndGame()
 	this->endGameText.setString("YOU DIED");
 }
 
+void GUI::initpowerUp()
+{
+	this->PowerUpText.setFont(this->Font);
+	this->PowerUpText.setPosition(200, 60);
+	this->PowerUpText.setFillColor(sf::Color::Yellow);
+	this->PowerUpText.setCharacterSize(30);
+}
+
 float GUI::clockUpdate()
 {
 	return countUp = clock.getElapsedTime().asSeconds();
@@ -55,7 +68,6 @@ float GUI::clockUpdate()
 
 int GUI::scoreUpdate()
 {
-	this->clockUpdate();
 	if (this->countUp > this->scoreUp) {
 		this->scoreUp += 5.f;
 		this->score += 20.f;
@@ -68,6 +80,56 @@ int GUI::livesUpdate()
 	return this->lives;	
 }
 
+void GUI::powerUpdate()
+{
+	if (this->invincibility)
+	{
+		this->powerTime = this->powerClock.getElapsedTime().asSeconds();
+		this->PowerUpText.setString("Invincibilty ON ");
+
+		if (this->powerTime  >= 10)
+		{
+			this->powerClock.restart();
+			this->invincibility = false;
+		}
+	}
+
+	if (this->addLivesBool) 
+	{
+		this->powerTime = this->powerClock.getElapsedTime().asSeconds();
+		this->PowerUpText.setString("Lives Added!");
+		if (this->powerTime >= 2)
+		{
+			this->powerClock.restart();
+			this->addLivesBool = false;
+		}
+	}
+
+	if (this->addScoreBool) 
+	{
+		this->powerTime = this->powerClock.getElapsedTime().asSeconds();
+		this->PowerUpText.setString("Plus 200 Score");
+		if (this->powerTime >= 2)
+		{
+			this->powerClock.restart();
+			this->addScoreBool = false;
+		}
+	}
+
+	if (this->slowedRocketBool)
+	{
+		this->powerTime = this->powerClock.getElapsedTime().asSeconds();
+		this->PowerUpText.setString("Rockets Slowed");
+		if (this->powerTime >= 10)
+		{
+			this->powerClock.restart();
+			this->slowedRocketBool = false;
+		}
+	}
+
+
+}
+
 GUI::GUI()
 {
 	this->initVariables();
@@ -75,6 +137,7 @@ GUI::GUI()
 	this->initClock();
 	this->initScore();
 	this->initLives();
+	this->initpowerUp();
 	this->initEndGame();
 }
 
@@ -114,6 +177,7 @@ void GUI::update()
 	this->toScoreString();
 	this->livesUpdate();
 	this->toLivesString();
+	this->powerUpdate();
 }
 
 void GUI::render(sf::RenderTarget & rTarget)
@@ -121,4 +185,6 @@ void GUI::render(sf::RenderTarget & rTarget)
 	rTarget.draw(timerText);
 	rTarget.draw(scoreText);
 	rTarget.draw(livesText);
+	rTarget.draw(PowerUpText);
+	
 }
