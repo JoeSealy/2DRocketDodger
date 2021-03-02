@@ -43,14 +43,18 @@ void Player::initPhysics()
 
 void Player::initMusic()
 {
-	this->music = false;
 
-	this->Running.openFromFile("Music/Running.wav");
-	this->Running.setVolume(60);
+	this->musicRunning.openFromFile("Music/MusicRunning.wav");
+	this->musicRunning.setVolume(50);
+	this->musicRunning.setLoop(true);
+	this->runSound = false;
 
-	this->Jumping.openFromFile("Music/Jumping.wav");
-	this->Jumping.setVolume(60);
+	this->musicJumping.openFromFile("Music/MusicJumping.wav");
+	this->musicJumping.setVolume(50);
+	this->jumpSound = false;
 }
+
+
 
 ////////////////////////Public//////////////////
 
@@ -221,16 +225,16 @@ void Player::updateAnimation()
 			this->sprite.setTextureRect(this->currentFrame);
 		}
 	}
-	else if (this->animState == PLAYER_ANIMATION_STATES::CROUCH)
-	{
-		if (this->stateTimer.getElapsedTime().asSeconds() >= 1.f || this->animSwitch())
-		{
-			//this->sprite.setTextureRect(this->currentFrame);
-		}
-		this->sprite.setScale(1.5, 0.75);
-		this->sprite.setOrigin(this->sprite.getGlobalBounds().height / 1.5f, 1.f);
-		this->stateTimer.restart();
-	}
+	//else if (this->animState == PLAYER_ANIMATION_STATES::CROUCH)
+	//{
+	//	if (this->stateTimer.getElapsedTime().asSeconds() >= 1.f || this->animSwitch())
+	//	{
+	//		//this->sprite.setTextureRect(this->currentFrame);
+	//	}
+	//	this->sprite.setScale(1.5, 0.75);
+	//	this->sprite.setOrigin(this->sprite.getGlobalBounds().height / 1.5f, 1.f);
+	//	this->stateTimer.restart();
+	//}
 	else
 		this->stateTimer.restart();
 }
@@ -241,28 +245,62 @@ void Player::keyPress()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))									//LEFT KEY
 	{
+		if (!this->runSound && this->canJump)
+		{
+			this->runSound = true;
+			this->musicPlay();
+		}
 		this->valMove(-1.f, 0.f);
 		this->animState = PLAYER_ANIMATION_STATES::MOVING_LEFT;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))								//RIGHT KEY
+	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))								//RIGHT KEY
 	{
+		if (!this->runSound && this->canJump)
+		{
+			this->runSound = true;
+			this->musicPlay();
+		}
 		this->valMove(1.f, 0.f);
 		this->animState = PLAYER_ANIMATION_STATES::MOVING_RIGHT;
 
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && this->canJump == true)		//JUMPING KEY
+	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && this->canJump == true)		//JUMPING KEY
 	{
 		this->canJump = false;
+
+		if (!this->jumpSound)
+		{
+			this->jumpSound = true;
+			this->musicPlay();
+		}
 		this->valMove(0.f, -30.f);
 		this->animState = PLAYER_ANIMATION_STATES::JUMPING;									
 	}
-	else if (std::abs(this->velocity.y) != 0.f)												//FALLING
+	
+	if (std::abs(this->velocity.y) != 0.f)												//FALLING
 	{
 		this->animState = PLAYER_ANIMATION_STATES::FALLING;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))								//CROUCHING KEY	
+	
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))								//CROUCHING KEY	
+	//{
+	//	this->animState = PLAYER_ANIMATION_STATES::CROUCH;
+	//}
+
+}
+
+void Player::musicPlay()
+{
+	if (this->jumpSound)
 	{
-		this->animState = PLAYER_ANIMATION_STATES::CROUCH;
+		this->musicJumping.play();
+	}
+
+	if (this->runSound)
+	{
+		this->musicRunning.play();
 	}
 }
 void Player::update()

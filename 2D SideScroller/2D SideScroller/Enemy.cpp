@@ -93,6 +93,7 @@ const sf::FloatRect Enemy::windowBounds() const
 
 void Enemy::positionSet(const float x, const float y)
 {
+	this->randYfloat();
 	switch (rocketNumber)
 	{
 	case 0:

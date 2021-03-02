@@ -41,16 +41,16 @@ void Game::initPowerUp()
 
 void Game::initMusic()
 {
-	musicMenu.openFromFile("Music/MusicMenu.wav");
-	musicMenu.setLoop(true);
-	musicMenu.setVolume(10);
+	this->musicMenu.openFromFile("Music/MusicMenu.wav");
+	this->musicMenu.setLoop(true);
+	this->musicMenu.setVolume(10);
 
-	musicInGame.openFromFile("Music/MusicInGame.wav");
-	musicInGame.setLoop(true);
-	musicInGame.setVolume(10);
+	this->musicInGame.openFromFile("Music/MusicInGame.wav");
+	this->musicInGame.setLoop(true);
+	this->musicInGame.setVolume(10);
 
-	musicDeath.openFromFile("Music/MusicDeath.wav");
-	musicDeath.setVolume(10);
+	this->musicDeath.openFromFile("Music/MusicDeath.wav");
+	this->musicDeath.setVolume(10);
 
 	this->musicStageInt = 0;
 }
@@ -226,10 +226,10 @@ bool Game::collisionCheck()
 	if (this->gui->invincibility == false)
 	{
 		for (int i(0); i < 6; i++) {
-			deltaX[i] = this->player->getPosition().x - this->enemy->rocket_list[i].getPosition().x;
-			deltaY[i] = this->player->getPosition().y - this->enemy->rocket_list[i].getPosition().y;
-			intersectX[i] = abs(deltaX[i]) - ((this->enemy->windowBounds().width / 2.f) + (this->player->windowBounds().width / 2.f));
-			intersectY[i] = abs(deltaY[i]) - ((this->enemy->windowBounds().height / 2.f) + (this->player->windowBounds().height / 2.f));
+			this->deltaX[i] = this->player->getPosition().x - this->enemy->rocket_list[i].getPosition().x;
+			this->deltaY[i] = this->player->getPosition().y - this->enemy->rocket_list[i].getPosition().y;
+			this->intersectX[i] = abs(deltaX[i]) - ((this->enemy->windowBounds().width / 2.f) + (this->player->windowBounds().width / 2.f));
+			this->intersectY[i] = abs(deltaY[i]) - ((this->enemy->windowBounds().height / 2.f) + (this->player->windowBounds().height / 2.f));
 
 			if (intersectX[i] < 0.f && intersectY[i] < 0.f)
 			{
@@ -242,10 +242,10 @@ bool Game::collisionCheck()
 		}
 	}
 
-	powerUpDeltaX = this->player->getPosition().x - this->powerup->getPosition().x;
-	powerUpDeltaY = this->player->getPosition().y - this->powerup->getPosition().y;
-	powerUpIntersectX = abs(powerUpDeltaX) - ((this->powerup->windowBounds().width / 2.f) + (this->player->windowBounds().width / 2.f));
-	powerUpIntersectY = abs(powerUpDeltaY) - ((this->powerup->windowBounds().height / 2.f) + (this->player->windowBounds().height / 2.f));
+	this->powerUpDeltaX = this->player->getPosition().x - this->powerup->getPosition().x;
+	this->powerUpDeltaY = this->player->getPosition().y - this->powerup->getPosition().y;
+	this->powerUpIntersectX = abs(powerUpDeltaX) - ((this->powerup->windowBounds().width / 2.f) + (this->player->windowBounds().width / 2.f));
+	this->powerUpIntersectY = abs(powerUpDeltaY) - ((this->powerup->windowBounds().height / 2.f) + (this->player->windowBounds().height / 2.f));
 
 	if (powerUpIntersectX < 0.f && powerUpIntersectY < 0.f)
 	{
@@ -317,14 +317,14 @@ void Game::update()
 			{
 				this->player->resetAnimTimer();
 				this->player->runSound = false;
-				this->player->musicRunning.stop();
+				this->player->musicRunning.pause();
 			}
 
 			if (this->event.key.code == sf::Keyboard::D)
 			{
 				this->player->resetAnimTimer();
 				this->player->runSound = false;
-				this->player->musicRunning.stop();
+				this->player->musicRunning.pause();
 			}
 
 			if (this->event.key.code == sf::Keyboard::S)
