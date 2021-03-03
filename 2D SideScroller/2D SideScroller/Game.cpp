@@ -6,7 +6,7 @@
 
 
 
-void Game::initwindow()
+void Game::initwindow()				//initialise window
 {
 	
 	this->window.create(sf::VideoMode(640, 480), "Rocket Dodge", sf::Style::Titlebar | sf::Style::Close);
@@ -14,32 +14,32 @@ void Game::initwindow()
 	this->window.setFramerateLimit(64);
 }
 
-void Game::initPlayer()
+void Game::initPlayer()				//initialise player
 {
 	this->player = new Player();
 }
 
-void Game::initEnemy()
+void Game::initEnemy()				//initialise enemy
 {
 	this->enemy = new Enemy();
 }
 
-void Game::initGUI()
+void Game::initGUI()				//initialise GUI
 {
 	this->gui = new GUI();
 }
 
-void Game::initMenu()
-{
+void Game::initMenu()				//initialise menu
+{	
 	this->menu = new Menu();
 }
 
-void Game::initPowerUp()
+void Game::initPowerUp()			//initialise power up
 {
 	this->powerup= new PowerUp();
 }
 
-void Game::initMusic()
+void Game::initMusic()				//initialise music
 {
 	this->musicMenu.openFromFile("Music/MusicMenu.wav");
 	this->musicMenu.setLoop(true);
@@ -55,7 +55,7 @@ void Game::initMusic()
 	this->musicStageInt = 0;
 }
 
-void Game::initBackground()
+void Game::initBackground()				//initialise background
 {
 	if (!this->backgroundTexture.loadFromFile("Textures/background_InGame.png"))
 	{
@@ -68,7 +68,7 @@ void Game::initBackground()
 ///////////////////Public////////////////////
 
 //conscructor
-Game::Game()
+Game::Game()	
 {
 	this->initwindow();
 	this->initBackground();
@@ -97,64 +97,64 @@ const bool Game::getWindowIsOpen() const
 	return this->window.isOpen() /*&& this->endGame == false*/;
 }
 
-const bool & Game::getEndGame() const
+const bool & Game::getEndGame() const			//end game true and false
 {
 	return this->endGame;
 }
 
 //Game functions
 
-void Game::playerUpdate()
+void Game::playerUpdate()						//update player
 {
 	this->player->update();
 }
 
-void Game::playerRender()
+void Game::playerRender()						//render player
 {
 	this->player->render(this->window);
 }
 
-void Game::enemyUpdate()
+void Game::enemyUpdate()						//update enemy
 {
 	this->enemy->update();
 }
 
-void Game::enemyRender()
+void Game::enemyRender()						//render enemy
 {
 	this->enemy->render(this->window);
 }
 
-void Game::guiUpdate()
+void Game::guiUpdate()							//update GUI
 {
 	this->gui->update();
 
-	if (this->gui->lives <= 0)
+	if (this->gui->lives <= 0)				//die at 0 lives
 	{
 		this->endGame = true;
 	}
 }
 
-void Game::guiRender()
+void Game::guiRender()							//render GUI
 {
 	this->gui->render(this->window);
 }
 
-void Game::MenuUpdate()
+void Game::MenuUpdate()							//update menu
 {
 	this->menu->update();
 }
 
-void Game::MenuRender()
+void Game::MenuRender()							//render menu
 {
 	this->menu->render(this->window);
 }
 
-void Game::powerUpUpdate()
+void Game::powerUpUpdate()						//update power
 {
 	this->powerup->update();
 }
 
-void Game::powerUpRender()
+void Game::powerUpRender()						//render power up
 {
 	this->powerup->render(this->window);
 }
@@ -202,7 +202,7 @@ void Game::collisionUpdate()
 
 	//----------------------------------------------ENEMY COLLISION WITH WINDOW---------------------------------------------------------------------
 
-	for (int i(0); i < 6; i++) {
+	for (int i(0); i < 6; i++) {	//rockets hit left side of screen reset position
 		if (this->enemy->rocket_list[i].getPosition().x + this->enemy->windowBounds().width < this->enemy->windowBounds().width)
 		{
 			this->enemy->rocketNumber = i;
@@ -212,6 +212,7 @@ void Game::collisionUpdate()
 	}
 
 	//-------------------------------------------------POWERUP COLLISION WITH WINDOW------------------------------------------------------------
+	//power up hits bottom of screen and resets y coordinate
 	if (this->powerup->getPosition().y + this->powerup->windowBounds().height > this->window.getSize().y)
 	{
 		this->powerup->positionSet(this->powerup->getPosition().x, -100.f);
@@ -223,7 +224,7 @@ void Game::collisionUpdate()
 
 bool Game::collisionCheck()
 {
-	if (this->gui->invincibility == false)
+	if (this->gui->invincibility == false)						//enemy and player collide then reset rocket to right side of screen
 	{
 		for (int i(0); i < 6; i++) {
 			this->deltaX[i] = this->player->getPosition().x - this->enemy->rocket_list[i].getPosition().x;
@@ -241,6 +242,8 @@ bool Game::collisionCheck()
 			}
 		}
 	}
+
+	//power up hits player and resets power up
 
 	this->powerUpDeltaX = this->player->getPosition().x - this->powerup->getPosition().x;
 	this->powerUpDeltaY = this->player->getPosition().y - this->powerup->getPosition().y;
@@ -260,7 +263,7 @@ bool Game::collisionCheck()
 
 void Game::powerups()
 {
-	switch (this->powerup->randPowerUp())
+	switch (this->powerup->randPowerUp())		//random power for power up
 	{
 	case 0:
 		this->gui->addScoreBool = true;
@@ -282,7 +285,7 @@ void Game::powerups()
 
 void Game::update()
 {
-	while (this->window.pollEvent(this->event))
+	while (this->window.pollEvent(this->event))		//update keys 
 	{
 		switch (this->event.type) {
 		case sf::Event::Closed:
@@ -332,7 +335,7 @@ void Game::update()
 				this->player->resetAnimTimer();
 			}
 
-			if (this->event.key.code == sf::Keyboard::Return)
+			if (this->event.key.code == sf::Keyboard::Return) //menu
 			{
 				switch (this->menu->getPressedItem())
 				{
@@ -351,9 +354,9 @@ void Game::update()
 		}
 	}
 	
-	if (!this->endGame)
+	if (!this->endGame)						//if end game is true death screen
 	{
-		if (this->menu->startGame == false) 
+		if (this->menu->startGame == false)  //if start game is true start game if not menu screen
 		{
 			this->MenuUpdate();
 			if (this->musicStageInt == 0)
@@ -383,15 +386,16 @@ void Game::update()
 
 void Game::render()
 {
-	this->window.clear(sf::Color(47, 79, 79, 255));
-	if (this->menu->startGame == false) {
+
+	if (this->menu->startGame == false)				//menu screen
+	{
 		this->MenuRender();
 	}
 	else{
 		this->window.draw(backgroundSprite);
 
 		this->powerUpRender();
-
+												//game screen
 		this->enemyRender();
 
 		this->playerRender();
@@ -407,7 +411,7 @@ void Game::render()
 			}
 
 			this->window.clear(sf::Color::Black);
-			this->window.draw(this->gui->endGameText);
+			this->window.draw(this->gui->endGameText);  //death screen
 			this->window.draw(this->gui->scoreText);
 		}
 	}

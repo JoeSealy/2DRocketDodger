@@ -9,14 +9,14 @@ void Enemy::initVariables()
 
 void Enemy::initTexture()
 {
-	if (!this->texture.loadFromFile("Textures/enemy_sprite_sheet.png"))
+	if (!this->texture.loadFromFile("Textures/enemy_sprite_sheet.png"))			//get texture
 	{
-		std::cout << "Error::Player::Could not load player texture" << "\n";
+		std::cout << "Error::Player::Could not load player texture" << "\n";	//error handler
 	}
 }
-void Enemy::initSprite()
+void Enemy::initSprite()								//initialise sprite
 {
-	this->rocket.setTexture(this->texture);
+	this->rocket.setTexture(this->texture);					
 	this->currentFrame = sf::IntRect(2, 270, 32, 70);
 	this->rocket.setTextureRect(this->currentFrame);
 	this->rocket.setScale(1.f, 1.f);
@@ -28,7 +28,7 @@ void Enemy::initSprite()
 	}
 }
 
-void Enemy::initPhysics()
+void Enemy::initPhysics()								//initialise physics
 {
 	this->shortArrayInt = 0;
 	this->minSpeed = -0.5f;
@@ -37,7 +37,7 @@ void Enemy::initPhysics()
 	this->accel = 0.2f;
 }
 
-void Enemy::initGUI()
+void Enemy::initGUI()									//initialise GUI
 {
 	this->gui = new GUI();
 }
@@ -57,7 +57,7 @@ Enemy::~Enemy()
 	delete this->gui;
 }
 
-const sf::Vector2f Enemy::getPosition() const
+const sf::Vector2f Enemy::getPosition() const			//Gets position of each rocket individualy
 {
 	switch (rocketNumber)
 	{
@@ -84,14 +84,14 @@ const sf::Vector2f Enemy::getPosition() const
 	
 }
 
-const sf::FloatRect Enemy::windowBounds() const
+const sf::FloatRect Enemy::windowBounds() const				//boundery of rockets
 {
 	for (int i = 0.f; i < rocket_list.size(); i++) {
 		return this->rocket_list[i].getGlobalBounds();
 	}
 } 
 
-void Enemy::positionSet(const float x, const float y)
+void Enemy::positionSet(const float x, const float y)      //random position set
 {
 	this->randYfloat();
 	switch (rocketNumber)
@@ -118,13 +118,13 @@ void Enemy::positionSet(const float x, const float y)
 	}
 }
 
-float Enemy::randYfloat()
+float Enemy::randYfloat()				//rand y float for the rocket
 {
 	randY = std::rand() % 480 + 80;
 	return randY;
 }
 
-void Enemy::updateAnimation()
+void Enemy::updateAnimation()								// Animation for the short rocket
 {
 	if (this->animState == ENEMY_ANIMATION_STATES::SHORT)
 	{
@@ -146,7 +146,8 @@ void Enemy::updateAnimation()
 		}
 	}
 }
-void Enemy::updateRocketPhysics()
+
+void Enemy::updateRocketPhysics()								//update rocket physics over time
 {
 	this->gui->clockUpdate();
 	this->velocity.x = minSpeed;
@@ -163,13 +164,13 @@ void Enemy::updateRocketPhysics()
 
 }
 
-void Enemy::update()
+void Enemy::update()								//update 
 {
 	this->updateAnimation();
 	this->updateRocketPhysics();
 }
 
-void Enemy::render(sf::RenderTarget & rTarget)
+void Enemy::render(sf::RenderTarget & rTarget)			//render
 {
 	for (int i = 0.f; i < rocket_list.size(); i++) {
 		rTarget.draw(this->rocket_list[i]);

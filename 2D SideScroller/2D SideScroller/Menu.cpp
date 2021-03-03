@@ -2,7 +2,7 @@
 
 
 
-void Menu::initMenuFont()
+void Menu::initMenuFont()						//initialise font
 {
 	if (!this->Font.loadFromFile("Fonts/Bebas-Regular.ttf"))
 	{
@@ -10,7 +10,7 @@ void Menu::initMenuFont()
 	}
 }
 
-void Menu::initBackground()
+void Menu::initBackground()						//initialise background
 {
 	if (!this->backgroundTexture.loadFromFile("Textures/background_Menu.png"))
 	{
@@ -21,12 +21,12 @@ void Menu::initBackground()
 
 }
 
-void Menu::initVariable()
+void Menu::initVariable()						//initalise varibales
 {
 	this->startGame = false;
 }
 
-void Menu::initMenuText()
+void Menu::initMenuText()						//initialise menu text
 {
 	this->titleText.setFont(this->Font);
 	this->titleText.setFillColor(sf::Color::Yellow);
@@ -55,7 +55,7 @@ void Menu::initMenuText()
 	this->selectedItemIndex = 1;
 }
 
-Menu::Menu()
+Menu::Menu()				//constuctor
 {
 	this->initBackground();
 	this->initVariable();
@@ -63,16 +63,16 @@ Menu::Menu()
 	this->initMenuText();
 }
 
-Menu::~Menu()
+Menu::~Menu()				//deconsuctor
 {
 }
 
-int Menu::getPressedItem()
+int Menu::getPressedItem()		//action on selected item
 {
 	return selectedItemIndex;
 }
 
-void Menu::moveUp()
+void Menu::moveUp()		//moves selection up
 {
 	if (selectedItemIndex - 1 >= 0)
 	{
@@ -82,7 +82,7 @@ void Menu::moveUp()
 	}
 }
 
-void Menu::moveDown()
+void Menu::moveDown()		//moves selection down
 {
 	if (selectedItemIndex + 1 < MAX_NUMBER_OF_ITEMS)
 	{
@@ -92,13 +92,13 @@ void Menu::moveDown()
 	}
 }
 
-void Menu::update()
+void Menu::update()		//update
 {
 	this->moveUp();
 	this->moveDown();
 }
 
-void Menu::render(sf::RenderTarget & rTarget)
+void Menu::render(sf::RenderTarget & rTarget)		//render target
 {
 	rTarget.draw(backgroundSprite);
 	for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)

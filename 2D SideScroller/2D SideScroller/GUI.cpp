@@ -3,7 +3,7 @@
 
 
 
-void GUI::initVariables()
+void GUI::initVariables()					// initialise variables
 {
 	this->powerTime = 0;
 	this->countUp = 0.f;
@@ -16,35 +16,35 @@ void GUI::initVariables()
 	this->slowedRocketBool = false;
 }
 
-void GUI::initFont()
+void GUI::initFont()						// initialise font
 {
 	if (!Font.loadFromFile("Fonts/Bebas-Regular.ttf")) {
 		std::cerr << "No font file found!" << std::endl;
 	}
 }
 
-void GUI::initClock()
+void GUI::initClock()						// initialise clock	text
 {
 	this->timerText.setFont(this->Font);
 	this->timerText.setPosition(10, 0);
 	this->timerText.setCharacterSize(30);
 }
 
-void GUI::initScore()
+void GUI::initScore()						//initialise score	text
 {
 	this->scoreText.setFont(this->Font);
 	this->scoreText.setPosition(500, 0);
 	this->scoreText.setCharacterSize(30);
 }
 
-void GUI::initLives()
+void GUI::initLives()						//initialise lives text
 {
 	this->livesText.setFont(this->Font);
 	this->livesText.setPosition(250, 0);
 	this->livesText.setCharacterSize(30);
 }
 
-void GUI::initEndGame()
+void GUI::initEndGame()						//initialise end game text
 {
 	this->endGameText.setFont(this->Font);
 	this->endGameText.setPosition(220, 180);
@@ -53,7 +53,7 @@ void GUI::initEndGame()
 	this->endGameText.setString("YOU DIED");
 }
 
-void GUI::initpowerUp()
+void GUI::initpowerUp()						//initialise power up text
 {
 	this->PowerUpText.setFont(this->Font);
 	this->PowerUpText.setPosition(200, 60);
@@ -61,12 +61,12 @@ void GUI::initpowerUp()
 	this->PowerUpText.setCharacterSize(30);
 }
 
-float GUI::clockUpdate()
+float GUI::clockUpdate()					//return clock number
 {
 	return countUp = clock.getElapsedTime().asSeconds();
 }
 
-int GUI::scoreUpdate()
+int GUI::scoreUpdate()						//updates score 
 {
 	if (this->countUp > this->scoreUp) {
 		this->scoreUp += 5.f;
@@ -75,14 +75,14 @@ int GUI::scoreUpdate()
 	}
 }
 
-int GUI::livesUpdate()
+int GUI::livesUpdate()						//returns lives
 {
 	return this->lives;	
 }
 
-void GUI::powerUpdate()
+void GUI::powerUpdate()						//updates power up text and dissapear overtime
 {
-	if (this->invincibility)
+	if (this->invincibility)				//invincibility text
 	{
 		std::srand(time(0));
 		this->powerTime = this->powerClock.getElapsedTime().asSeconds();
@@ -97,7 +97,7 @@ void GUI::powerUpdate()
 	}
 
 
-	if (this->addLivesBool) 
+	if (this->addLivesBool)						//add lives text
 	{
 		std::srand(time(0));
 		this->powerTime = this->powerClock.getElapsedTime().asSeconds();
@@ -112,7 +112,7 @@ void GUI::powerUpdate()
 	}
 
 
-	if (this->addScoreBool) 
+	if (this->addScoreBool)						//added score text
 	{
 		std::srand(time(0));
 		this->powerTime = this->powerClock.getElapsedTime().asSeconds();
@@ -126,7 +126,7 @@ void GUI::powerUpdate()
 	}
 
 
-	if (this->slowedRocketBool)
+	if (this->slowedRocketBool)					//slowed rockets text
 	{
 		std::srand(time(0));
 		this->powerTime = this->powerClock.getElapsedTime().asSeconds();
@@ -140,7 +140,7 @@ void GUI::powerUpdate()
 	}
 }
 
-GUI::GUI()
+GUI::GUI()				//constuctor
 {
 	this->initVariables();
 	this->initFont();
@@ -151,11 +151,11 @@ GUI::GUI()
 	this->initEndGame();
 }
 
-GUI::~GUI()
+GUI::~GUI()				//deconstructor
 {
 }
 
-void GUI::toClockString()
+void GUI::toClockString()												//turns the clock number to string to show on screen
 {
 	std::ostringstream covertClock;
 	covertClock << std::setprecision(2) << std::fixed << this->countUp;
@@ -163,7 +163,7 @@ void GUI::toClockString()
 	timerText.setString("Timer: " + this->countUpStr);
 }
 
-void GUI::toScoreString()
+void GUI::toScoreString()												//turns the score number to string to show on screen
 {
 	std::ostringstream covertScore;
 	covertScore << this->score;
@@ -171,7 +171,7 @@ void GUI::toScoreString()
 	scoreText.setString("Score: " + this->scoreUpStr);
 }
 
-void GUI::toLivesString()
+void GUI::toLivesString()												//turns the lives number to string to show on screen
 {
 	std::ostringstream covertlives;
 	covertlives << this->lives;
@@ -179,7 +179,7 @@ void GUI::toLivesString()
 	livesText.setString("lives: " + this->livesStr);
 }
 
-void GUI::update()
+void GUI::update()							//update function
 {
 	this->clockUpdate();
 	this->toClockString();
@@ -190,7 +190,7 @@ void GUI::update()
 	this->powerUpdate();
 }
 
-void GUI::render(sf::RenderTarget & rTarget)
+void GUI::render(sf::RenderTarget & rTarget)		//render targets
 {
 	rTarget.draw(timerText);
 	rTarget.draw(scoreText);

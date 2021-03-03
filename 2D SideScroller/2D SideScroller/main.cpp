@@ -5,7 +5,7 @@ int main()
 	Game game;
 
 
-	while (game.getWindowIsOpen())
+	while (game.getWindowIsOpen())	
 	{
 		//Updates Game			
 		game.update();

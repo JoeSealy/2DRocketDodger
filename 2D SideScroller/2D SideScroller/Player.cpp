@@ -3,20 +3,20 @@
 
 
 
-void Player::initVariables()
+void Player::initVariables()			//initialise variables
 {
 	this->animState = IDLE;
 }
 
 //Private//
-void Player::initTexture()
+void Player::initTexture()				//initialise texture
 {
-	if (!this->texture.loadFromFile("Textures/player_sprite_sheet.png"))
+	if (!this->texture.loadFromFile("Textures/player_sprite_sheet.png"))   //error handler
 	{
 		std::cout << "Error::Player::Could not load player texture" << "\n";
 	}
 }
-void Player::initSprite()
+void Player::initSprite()							//initialise sprite
 {
 	this->sprite.setTexture(this->texture);
 	this->currentFrame = sf::IntRect(0, 0, 40, 50);
@@ -25,13 +25,13 @@ void Player::initSprite()
 	this->sprite.setPosition(280.f, 400.f);
 }
 
-void Player::initAnimation()
+void Player::initAnimation()			//initialise animation
 {
 	this->animationDiff = true;
 	this->stateTimer.restart();
 }
 
-void Player::initPhysics()
+void Player::initPhysics()				//initialise physics
 {
 	this->jumpHeight = 30.f;
 	this->gravity = 2.f;
@@ -41,7 +41,7 @@ void Player::initPhysics()
 	this->decel = 0.85f;
 }
 
-void Player::initMusic()
+void Player::initMusic()				//initialise music
 {
 
 	this->musicRunning.openFromFile("Music/MusicRunning.wav");
@@ -75,12 +75,12 @@ Player::~Player()
 
 }
 
-const sf::Vector2f Player::getPosition() const
+const sf::Vector2f Player::getPosition() const    // get position for sprite
 {
 	return this->sprite.getPosition();
 }
 
-const bool & Player::animSwitch()
+const bool & Player::animSwitch()					//switches animation when key press is switch
 {
 	bool tempAnimSwitch = this->animationDiff;
 	if (this->animationDiff)
@@ -90,29 +90,29 @@ const bool & Player::animSwitch()
 	return tempAnimSwitch;
 }
 
-const sf::FloatRect Player::windowBounds() const
+const sf::FloatRect Player::windowBounds() const	// bounderies of the sprite
 {
 	return this->sprite.getGlobalBounds();
 }
 
-void Player::velocityReset()
+void Player::velocityReset()						//velocity resets
 {
 	this->velocity.y = 0.f;
 	this->canJump = true;
 }
 
-void Player::positionSet(const float x, const float y)
+void Player::positionSet(const float x, const float y)			//sets position
 {
 	this->sprite.setPosition(x, y);
 }
 
-void Player::resetAnimTimer()
+void Player::resetAnimTimer()							//reset animation timer to the start
 {
 	this->stateTimer.restart();
 	this->animationDiff = true;
 }
 
-void Player::valMove(const float dir_x, const float dir_y)
+void Player::valMove(const float dir_x, const float dir_y)  //value moves player in either direction
 {
 	this->velocity.x += dir_x * this->accel;
 
@@ -129,7 +129,7 @@ void Player::valMove(const float dir_x, const float dir_y)
 
 }
 
-void Player::updatePhysics()
+void Player::updatePhysics()									//update physics of player
 {
 	
 	this->velocity.y += 1.f * this->gravity;
@@ -148,7 +148,7 @@ void Player::updatePhysics()
 	this->sprite.move(this->velocity);
 }
 
-void Player::updateAnimation()
+void Player::updateAnimation()									//update animations
 {
 	if (this->animState == PLAYER_ANIMATION_STATES::IDLE) 
 	{
@@ -225,7 +225,7 @@ void Player::updateAnimation()
 			this->sprite.setTextureRect(this->currentFrame);
 		}
 	}
-	//else if (this->animState == PLAYER_ANIMATION_STATES::CROUCH)
+	//else if (this->animState == PLAYER_ANIMATION_STATES::CROUCH)						
 	//{
 	//	if (this->stateTimer.getElapsedTime().asSeconds() >= 1.f || this->animSwitch())
 	//	{
@@ -238,7 +238,7 @@ void Player::updateAnimation()
 	else
 		this->stateTimer.restart();
 }
-void Player::keyPress()
+void Player::keyPress()																//key press activates animation music for actions 
 {
 	///////////Movement///////////
 	this->animState = PLAYER_ANIMATION_STATES::IDLE;										//IDLE
@@ -291,7 +291,7 @@ void Player::keyPress()
 
 }
 
-void Player::musicPlay()
+void Player::musicPlay()													//plays music for running and jumping
 {
 	if (this->jumpSound)
 	{
@@ -303,14 +303,14 @@ void Player::musicPlay()
 		this->musicRunning.play();
 	}
 }
-void Player::update()
+void Player::update()														//update functions
 {
 	this->keyPress();
 	this->updateAnimation();
 	this->updatePhysics();
 }
 
-void Player::render(sf::RenderTarget & rTarget)
+void Player::render(sf::RenderTarget & rTarget)								//renders target
 {
 	rTarget.draw(this->sprite);
 }
