@@ -71,7 +71,7 @@ int PowerUp::randXint()
 
 int PowerUp::randPowerUp()
 {
-	randPowerUpInt = std::rand() % 3;
+	randPowerUpInt = std::rand() % 4;
 	return randPowerUpInt;
 }
 
@@ -82,20 +82,25 @@ int PowerUp::randClockInt()
 }
 
 void PowerUp::updatePowerUpPhysics()
-{
+{		
+	if (!this->powerUpDrop)
+	{
 		this->velocity.y = 1.f;
+	}
 
-		if (this->powerUpDrop){
-			std::srand(time(0));
-			this->velocity.y = 0.f;
-			this->dropClockInt = dropClock.getElapsedTime().asSeconds();
-			this->randClockInt();
-			if (this->dropClockInt >= this->randClockInt())
-			{
-				this->powerUpDrop = false;
-			}
+	if (this->powerUpDrop){
+		std::srand(time(0));
+		this->velocity.y = 0.f;
+		this->powerUp.move(this->velocity);
+
+		this->dropClockInt = dropClock.getElapsedTime().asSeconds();
+		this->randClockInt();
+
+		if (this->dropClockInt >= this->randDropClockInt)
+		{
+			this->powerUpDrop = false;
 		}
-
+	}
 	this->powerUp.move(this->velocity);
 }
 

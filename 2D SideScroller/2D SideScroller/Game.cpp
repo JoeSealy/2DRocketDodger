@@ -365,11 +365,11 @@ void Game::update()
 		else
 		{
 			this->guiUpdate();
-			this->powerUpUpdate();
 			this->enemyUpdate();
 			this->playerUpdate();
 			this->collisionCheck();
 			this->collisionUpdate();
+			this->powerUpUpdate();
 			if (this->musicStageInt == 1)
 			{
 				this->musicInGame.play();
@@ -408,6 +408,7 @@ void Game::render()
 
 			this->window.clear(sf::Color::Black);
 			this->window.draw(this->gui->endGameText);
+			this->window.draw(this->gui->scoreText);
 		}
 	}
 	this->window.display();

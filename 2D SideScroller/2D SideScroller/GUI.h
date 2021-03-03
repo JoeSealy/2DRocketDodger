@@ -3,11 +3,11 @@
 class GUI
 {
 private:
-
+	//SFML Variables
 	sf::Text timerText;
-	sf::Text scoreText;
 	sf::Text livesText;
 	sf::Text PowerUpText;
+	sf::Text endGameTextScore;
 
 	sf::Font Font;
 
@@ -18,9 +18,11 @@ private:
 	std::string scoreUpStr;
 	std::string livesStr;
 
-	int scoreUp;
-	int powerTime;
+	//Variables
+	int scoreUp;		//adds score over time
+	int powerTime;		//Duration of power up
 
+	//Functions
 	void initVariables();
 	void initFont();
 	void initClock();
@@ -32,30 +34,36 @@ private:
 
 
 public:
+	//constructor/decontrcutor
 	GUI();
 	virtual ~GUI();
 
+	//SFML Variables
+	sf::Text scoreText;
 	sf::Text endGameText;
+
+	//Variables
+	bool invincibility;		//check invincibility
+	bool addLivesBool;		//add lives 
+	bool addScoreBool;		//adds to score
+	bool slowedRocketBool;	//slows rockets
+
+	float countUp;			//time
+
+	int lives;				//amount lives
+	int score;				// adds to score
+
+	//Functions
+	float clockUpdate();
+
+	int scoreUpdate();		
+	int livesUpdate();
 
 	void toClockString();
 	void toScoreString();
 	void toLivesString();
 
-
-	bool invincibility;
-	bool addLivesBool;
-	bool addScoreBool;
-	bool slowedRocketBool;
-
-	float countUp;
-	int lives;
-	int score;
-	
 	void powerUpdate();
-	float clockUpdate();
-	int scoreUpdate();
-	int livesUpdate();
-
 	void update();
 	void render(sf::RenderTarget& rTarget);
 

@@ -5,6 +5,8 @@ enum ENEMY_ANIMATION_STATES{SHORT = 0, LONG};
 class Enemy
 {
 private:
+
+	//SFML Variables
 	sf::Sprite rocket;
 	sf::Texture texture;
 	sf::Event event;
@@ -12,18 +14,24 @@ private:
 	sf::Clock stateTimer;
 	sf::Vector2f velocity;
 
+	//Object
 	GUI* gui;
 
-	float randY;
-	int shortArrayInt;
-	float animShortArray [12];
-	float accel;		//Acceleration
-	float Speed;		//speed
-	float minSpeed;
-	float maxSpeed;
-	short animState;	//what state the character is in
-	bool animationDiff;	//Changes rocket size
+	//variables
+	int shortArrayInt;  //number of the rocket
 
+	float randY;		//rand Y value each time
+	float animShortArray [12]; //animation array
+	float accel;		//Acceleration
+	float Speed;		//Speed
+	float minSpeed;		//Minimum Speed
+	float maxSpeed;		//Max Speed
+
+	short animState;	//what state the character is in
+
+	bool animationDiff;	//Changes rocket 
+
+	//Functions
 	void initGUI();
 	void initVariables();
 	void initTexture();
@@ -31,20 +39,23 @@ private:
 	void initPhysics();
 
 public:
-	Enemy();
-	virtual ~Enemy();
+	//constructor/deconstuctor
+	Enemy();		
+	virtual ~Enemy();	
 
-	std::vector<sf::Sprite> rocket_list;
+	//vector array
+	std::vector<sf::Sprite> rocket_list;		
 
-	const sf::Vector2f getPosition() const;
-	const sf::FloatRect windowBounds() const;
+	//variables
+	float slowSpeed; //PowerUp slows rocket
+	int rocketNumber; //Number of which rocket
 
-	float slowSpeed;
-
-
-	void positionSet(const float x, const float y);
-	int rocketNumber;
+	//Functions
 	float randYfloat();
+
+	const sf::Vector2f getPosition() const;		
+	const sf::FloatRect windowBounds() const;	
+	void positionSet(const float x, const float y); 
 	void updateAnimation();
 	void updateRocketPhysics();
 	void update();

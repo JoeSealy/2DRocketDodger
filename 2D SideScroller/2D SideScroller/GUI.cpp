@@ -134,8 +134,6 @@ void GUI::powerUpdate()
 			this->slowedRocketBool = false;
 		}
 	}
-
-
 }
 
 GUI::GUI()

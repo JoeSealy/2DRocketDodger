@@ -14,12 +14,12 @@ private:
 	sf::Event event;
 	sf::VideoMode videomode;
 
-	//Music/soundeffects
+	//Music/Sound Effects
 	sf::Music musicMenu;
 	sf::Music musicInGame;
 	sf::Music musicDeath;
 
-	//background
+	//Background
 	sf::Texture backgroundTexture;
 	sf::Sprite backgroundSprite;
 
@@ -31,14 +31,12 @@ private:
 	PowerUp* powerup;
 
 	//Extras
-	int selectedItem;
-	int musicStageInt;
-	int musicActionInt;
-	bool endGame;
+	int musicStageInt;	//Music for each game state
+	bool endGame;		//checks if end game
 
 
-	float deltaX[6], deltaY[6], intersectX[6], intersectY[6];
-	float powerUpDeltaX, powerUpDeltaY, powerUpIntersectX, powerUpIntersectY;
+	float deltaX[6], deltaY[6], intersectX[6], intersectY[6];					//check collision for each rocket
+	float powerUpDeltaX, powerUpDeltaY, powerUpIntersectX, powerUpIntersectY;	//collision for power up
 
 	//functions
 	void initwindow();
@@ -48,7 +46,7 @@ private:
 	void initGUI();
 	void initPowerUp();
 	void initMenu();
-
+	void initMusic();
 
 public:
 
@@ -88,7 +86,6 @@ public:
 	void powerups();
 	void update();
 	void render();
-	void initMusic();
 	const sf::RenderWindow& getWindow() const;
 	
 

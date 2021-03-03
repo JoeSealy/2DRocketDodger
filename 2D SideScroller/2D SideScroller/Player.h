@@ -4,6 +4,7 @@ enum PLAYER_ANIMATION_STATES {IDLE = 0, MOVING_RIGHT, MOVING_LEFT, JUMPING, FALL
 class Player
 {
 private:
+	//SFML Variables
 	sf::Sprite sprite;
 	sf::Texture texture;
 	sf::Event event;
@@ -12,23 +13,22 @@ private:
 
 	sf::Clock stateTimer;
 
-	
-
-
-	float maxGravSpeed;	
+	//variables
+	float maxGravSpeed;	//max Garvity
 	float gravity;		//gravity speed
 	float jumpHeight;	//max height jumping	
 	float accel;		//Acceleration
 	float decel;		//Deceleration
 	float maxSpeed;		//Top movement speed
 	float minSpeed;		//Lowest movement speed
+
 	bool animationDiff;	//Swap animation
-	bool canJump;
-	bool music;
+	bool canJump;		//jump if on floor
+
 	short animState;	//what state the character is in
 
 
-
+	//Functions
 	void initVariables();
 	void initTexture();
 	void initSprite();
@@ -37,25 +37,31 @@ private:
 	void initMusic();
 
 public:
+	//Constructor/Deconstuctor
 	Player();
 	virtual ~Player();
 
-	sf::Music musicRunning;
+	//SFML Variables
+	sf::Music musicRunning;		
 	sf::Music musicJumping;
-	bool jumpSound;
-	bool runSound;
 
-	const sf::Vector2f getPosition()const;
-	const bool& animSwitch();
-	const sf::FloatRect windowBounds() const;
-
-	void musicPlay();
-	void velocityReset();
-	void positionSet(const float x, const float y);
+	//Variables
+	bool jumpSound;			//do jumping sound when jumping
+	bool runSound;			//do running sound when runnning
 
 	//functions
-	void resetAnimTimer();
+	const sf::Vector2f getPosition()const;
+	const sf::FloatRect windowBounds() const;
+	const bool& animSwitch();
+
+	void positionSet(const float x, const float y);
 	void valMove(const float dir_x, const float dir_y);
+
+	void velocityReset();
+	void resetAnimTimer();
+
+	void musicPlay();
+	
 	void updatePhysics();
 	void updateAnimation();
 	void keyPress();
