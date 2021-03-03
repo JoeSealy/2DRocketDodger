@@ -274,7 +274,7 @@ void Game::powerups()
 		break;
 	case 2:
 		this->gui->slowedRocketBool = true;
-		this->enemy->slowSpeed;
+
 		break;
 	case 3:
 		this->gui->addLivesBool = true;

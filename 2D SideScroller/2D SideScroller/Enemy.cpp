@@ -31,8 +31,8 @@ void Enemy::initSprite()								//initialise sprite
 void Enemy::initPhysics()								//initialise physics
 {
 	this->shortArrayInt = 0;
-	this->minSpeed = -0.5f;
-	this->maxSpeed = -3.f;
+	this->minSpeed = -3.f;
+	this->maxSpeed = -7.f;
 	this->Speed = -0.5f;
 	this->accel = 0.2f;
 }
@@ -93,25 +93,30 @@ const sf::FloatRect Enemy::windowBounds() const				//boundery of rockets
 
 void Enemy::positionSet(const float x, const float y)      //random position set
 {
-	this->randYfloat();
 	switch (rocketNumber)
 	{
 	case 0:
+		this->randYfloat();
 		return this->rocket_list[0].setPosition(x, this->randYfloat());
 		break;
 	case 1:
+		this->randYfloat();
 		return this->rocket_list[1].setPosition(x, this->randYfloat());
 		break;
 	case 2:
+		this->randYfloat();
 		return this->rocket_list[2].setPosition(x, this->randYfloat());
 		break;
 	case 3:
+		this->randYfloat();
 		return this->rocket_list[3].setPosition(x, this->randYfloat());
 		break;
 	case 4:
+		this->randYfloat();
 		return this->rocket_list[4].setPosition(x, this->randYfloat());
 		break;
 	case 5:
+		this->randYfloat();
 		return this->rocket_list[5].setPosition(x, this->randYfloat());
 		break;
 
@@ -150,17 +155,65 @@ void Enemy::updateAnimation()								// Animation for the short rocket
 void Enemy::updateRocketPhysics()								//update rocket physics over time
 {
 	this->gui->clockUpdate();
-	this->velocity.x = minSpeed;
-	if (this->gui->clockUpdate() > 10.f) {
-		this->velocity.x = minSpeed - 1;
+
+	if (this->gui->slowedRocketBool)
+	{
+		this->velocity.x = this->minSpeed;
 	}
 
-	const int amountRocket(1.f + fmod(this->gui->countUp, 500.f));
+	if (this->velocity.x > maxSpeed)
+	{
+		this->velocity.x = this->maxSpeed;
+	}
+
+	if (this->gui->clockUpdate() > 5.f) {
+		this->velocity.x = this->minSpeed;
+		this->rocket_list[0].move(this->velocity);
+	}
+
+	if (this->gui->clockUpdate() > 10.f) {
+		this->velocity.x = this->minSpeed - 0.5f;
+		this->rocket_list[1].move(this->velocity);
+	}
+
+	if (this->gui->clockUpdate() > 30.f) {
+		this->velocity.x = this->minSpeed - 1.0f;
+		this->rocket_list[2].move(this->velocity);
+	}
+
+	if (this->gui->clockUpdate() > 50.f) {
+		this->velocity.x = this->minSpeed - 1.5f;
+		this->rocket_list[3].move(this->velocity);
+	}
+
+	if (this->gui->clockUpdate() > 70.f) {
+		this->velocity.x = this->minSpeed - 2.0f;
+		this->rocket_list[4].move(this->velocity);
+	}
+
+	if (this->gui->clockUpdate() > 90.f) {
+		this->velocity.x = this->minSpeed - 2.5f;
+		this->rocket_list[5].move(this->velocity);
+	}
+
+	if (this->gui->clockUpdate() > 110.f) {
+		this->velocity.x = this->minSpeed - 3.5f;
+	}
+
+	if (this->gui->clockUpdate() > 130.f) {
+		this->velocity.x = this->minSpeed - 4.f;
+	}
+
+	if (this->gui->clockUpdate() > 150.f) {
+		this->velocity.x = this->minSpeed - 4.5f;
+	}
+
+	/*const int amountRocket(1.f + fmod(this->gui->countUp, 500.f));
 	for (int i = 0.f; i < ((amountRocket < rocket_list.size() + 1.f) ? amountRocket : rocket_list.size()); i++)
 	{
 		this->rocket_list[i].move(this->velocity);
 
-	}
+	}*/
 
 }
 
