@@ -28,18 +28,12 @@ void PowerUp::initSprite()
 
 }
 
-void PowerUp::initPhysics()
-{
-	this->Speed = 0.5f;
-}
-
 PowerUp::PowerUp()
 {
 	this->initVariables();
 	this->initGUI();
 	this->initTexture();
 	this->initSprite();
-	this->initPhysics();
 }
 
 PowerUp::~PowerUp()
@@ -65,7 +59,7 @@ void PowerUp::positionSet(const float x, const float y)
 
 int PowerUp::randXint()
 {
-	randX = std::rand() % 480 + 80;
+	randX = std::rand() % 480;
 	return randX;
 }
 
@@ -91,16 +85,18 @@ void PowerUp::updatePowerUpPhysics()
 	if (this->powerUpDrop){
 		std::srand(time(0));
 		this->velocity.y = 0.f;
-		this->powerUp.move(this->velocity);
 
 		this->dropClockInt = dropClock.getElapsedTime().asSeconds();
 		this->randClockInt();
 
 		if (this->dropClockInt >= this->randDropClockInt)
 		{
+			dropClock.restart();
 			this->powerUpDrop = false;
 		}
 	}
+
+
 	this->powerUp.move(this->velocity);
 }
 

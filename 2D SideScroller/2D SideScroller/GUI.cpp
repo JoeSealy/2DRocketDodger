@@ -96,11 +96,13 @@ void GUI::powerUpdate()
 		}
 	}
 
+
 	if (this->addLivesBool) 
 	{
 		std::srand(time(0));
 		this->powerTime = this->powerClock.getElapsedTime().asSeconds();
 		this->PowerUpText.setString("Lives Added!");
+
 		if (this->powerTime >= 3)
 		{
 			this->PowerUpText.setString("");
@@ -108,6 +110,7 @@ void GUI::powerUpdate()
 			this->addLivesBool = false;
 		}
 	}
+
 
 	if (this->addScoreBool) 
 	{
@@ -121,6 +124,7 @@ void GUI::powerUpdate()
 			this->addScoreBool = false;
 		}
 	}
+
 
 	if (this->slowedRocketBool)
 	{

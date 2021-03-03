@@ -26,7 +26,6 @@ class PowerUp
 		void initVariables();
 		void initTexture();
 		void initSprite();
-		void initPhysics();
 
 	public:
 		//Contructor/Destructor
