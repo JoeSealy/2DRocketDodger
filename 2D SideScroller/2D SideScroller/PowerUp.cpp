@@ -1,10 +1,5 @@
 #include "PowerUp.h"
 
-void PowerUp::initGUI()						//Initialise GUI
-{
-	this->gui = new GUI();
-}
-
 void PowerUp::initVariables()				//initiailise varibales
 {
 	this->powerUpDrop = false;
@@ -31,14 +26,12 @@ void PowerUp::initSprite()					//intialise sprite
 PowerUp::PowerUp()							//constructor
 {
 	this->initVariables();
-	this->initGUI();
 	this->initTexture();
 	this->initSprite();
 }
 
 PowerUp::~PowerUp()							//deconstuctor
 {
-	delete this->gui;
 }
 
 const sf::Vector2f PowerUp::getPosition() const			//gets position of power up

@@ -12,9 +12,6 @@ class PowerUp
 		sf::IntRect currentFrame;
 
 		sf::Clock dropClock;
-
-		//Object
-		GUI* gui;
 		
 		//Variables
 		int randDropClockInt;	//random drops
@@ -22,7 +19,6 @@ class PowerUp
 		int randX;				//random power up
 
 		//Functions
-		void initGUI();
 		void initVariables();
 		void initTexture();
 		void initSprite();
