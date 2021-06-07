@@ -19,7 +19,7 @@ void Player::initTexture()				//initialise texture
 void Player::initSprite()							//initialise sprite
 {
 	this->sprite.setTexture(this->texture);
-	this->currentFrame = sf::IntRect(0, 0, 40, 50);
+	this->currentFrame = sf::IntRect(0, 30, 40, 50);
 	this->sprite.setTextureRect(this->currentFrame);
 	this->sprite.setScale(1.5f, 1.5f);
 	this->sprite.setPosition(280.f, 400.f);

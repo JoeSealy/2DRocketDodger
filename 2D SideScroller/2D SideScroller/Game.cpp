@@ -2,10 +2,6 @@
 
 //////////////Private//////////////
 
-
-
-
-
 void Game::initwindow()				//initialise window
 {
 	
@@ -230,7 +226,7 @@ bool Game::collisionCheck()
 			this->deltaX[i] = this->player->getPosition().x - this->enemy->rocket_list[i].getPosition().x;
 			this->deltaY[i] = this->player->getPosition().y - this->enemy->rocket_list[i].getPosition().y;
 			this->intersectX[i] = abs(deltaX[i]) - ((this->enemy->windowBounds().width / 2.f) + (this->player->windowBounds().width / 2.f));
-			this->intersectY[i] = abs(deltaY[i]) - ((this->enemy->windowBounds().height / 2.f) + (this->player->windowBounds().height / 2.f));
+			this->intersectY[i] = abs(deltaY[i]) - ((this->enemy->windowBounds().height / 4.f) + (this->player->windowBounds().height / 4.f));
 
 			if (intersectX[i] < 0.f && intersectY[i] < 0.f)
 			{
@@ -242,7 +238,7 @@ bool Game::collisionCheck()
 			}
 		}
 	}
-
+	//hello
 	//power up hits player and resets power up
 
 	this->powerUpDeltaX = this->player->getPosition().x - this->powerup->getPosition().x;
@@ -346,7 +342,7 @@ void Game::update()
 					//options
 					break;
 				case 3:
-					window.close();
+					this->window.close();
 					break;
 				}
 			}
