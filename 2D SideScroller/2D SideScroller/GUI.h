@@ -14,6 +14,10 @@ private:
 	sf::Clock clock;
 	sf::Clock powerClock;
 	
+	//Background
+	sf::Texture backgroundTexture;
+	sf::Sprite backgroundSprite;
+
 	std::string countUpStr;
 	std::string scoreUpStr;
 	std::string livesStr;
@@ -30,6 +34,8 @@ private:
 	void initLives();
 	void initEndGame();
 	void initpowerUp();
+
+	void initBackground();
 
 
 

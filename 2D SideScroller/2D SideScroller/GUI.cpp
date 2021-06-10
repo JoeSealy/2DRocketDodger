@@ -61,6 +61,17 @@ void GUI::initpowerUp()						//initialise power up text
 	this->PowerUpText.setCharacterSize(30);
 }
 
+void GUI::initBackground()				//initialise background
+{
+	if (!this->backgroundTexture.loadFromFile("Textures/background_InGame.png"))
+	{
+		std::cerr << "No font file found!" << std::endl;
+	}
+	this->backgroundSprite.setTexture(this->backgroundTexture);
+	this->backgroundSprite.setScale(.5f, .9f);
+
+}
+
 float GUI::clockUpdate()					//return clock number
 {
 	return countUp = clock.getElapsedTime().asSeconds();
@@ -149,6 +160,7 @@ GUI::GUI()				//constuctor
 	this->initLives();
 	this->initpowerUp();
 	this->initEndGame();
+	this->initBackground();
 }
 
 GUI::~GUI()				//deconstructor
@@ -192,9 +204,9 @@ void GUI::update()							//update function
 
 void GUI::render(sf::RenderTarget & rTarget)		//render targets
 {
+	rTarget.draw(backgroundSprite);
 	rTarget.draw(timerText);
 	rTarget.draw(scoreText);
 	rTarget.draw(livesText);
 	rTarget.draw(PowerUpText);
-	
 }

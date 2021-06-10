@@ -51,23 +51,14 @@ void Game::initMusic()				//initialise music
 	this->musicStageInt = 0;
 }
 
-void Game::initBackground()				//initialise background
-{
-	if (!this->backgroundTexture.loadFromFile("Textures/background_InGame.png"))
-	{
-		std::cerr << "No font file found!" << std::endl;
-	}
-	this->backgroundSprite.setTexture(this->backgroundTexture);
-	this->backgroundSprite.setScale(.5f, .9f);
 
-}
 ///////////////////Public////////////////////
 
 //conscructor
 Game::Game()	
 {
 	this->initwindow();
-	this->initBackground();
+	//this->initBackground();
 	this->initMenu();
 	this->initPlayer();
 	this->initEnemy();
@@ -238,7 +229,6 @@ bool Game::collisionCheck()
 			}
 		}
 	}
-	//hello
 	//power up hits player and resets power up
 
 	this->powerUpDeltaX = this->player->getPosition().x - this->powerup->getPosition().x;
@@ -388,7 +378,7 @@ void Game::render()
 		this->MenuRender();
 	}
 	else{
-		this->window.draw(backgroundSprite);
+		this->guiRender();
 
 		this->powerUpRender();
 												//game screen
@@ -396,7 +386,6 @@ void Game::render()
 
 		this->playerRender();
 
-		this->guiRender();
 
 		if (this->endGame)
 		{

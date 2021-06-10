@@ -19,10 +19,6 @@ private:
 	sf::Music musicInGame;
 	sf::Music musicDeath;
 
-	//Background
-	sf::Texture backgroundTexture;
-	sf::Sprite backgroundSprite;
-
 	//Objects
 	Player* player;
 	Enemy*  enemy;
@@ -40,7 +36,6 @@ private:
 
 	//functions
 	void initwindow();
-	void initBackground();
 	void initPlayer();
 	void initEnemy();
 	void initGUI();
