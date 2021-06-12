@@ -19,11 +19,11 @@ void Enemy::initSprite()								//initialise sprite
 	this->rocket.setTexture(this->texture);					
 	this->currentFrame = sf::IntRect(2, 270, 32, 70);
 	this->rocket.setTextureRect(this->currentFrame);
-	this->rocket.setScale(1.f, 1.f);
-	this->rocket.setRotation(-90.f);
+	this->rocket.setScale(1, 1);
+	this->rocket.setRotation(-90);
 	srand(time(NULL));
 	for (int i = 0; i < 6; i++) {
-		this->rocket.setPosition(640.f, this->randYfloat());
+		this->rocket.setPosition(640, this->randYfloat());
 		this->rocket_list.push_back(rocket);
 	}
 }
@@ -86,7 +86,7 @@ const sf::Vector2f Enemy::getPosition() const			//Gets position of each rocket i
 
 const sf::FloatRect Enemy::windowBounds() const				//boundery of rockets
 {
-	for (int i = 0.f; i < rocket_list.size(); i++) {
+	for (int i = 0; i < rocket_list.size(); i++) {
 		return this->rocket_list[i].getGlobalBounds();
 	}
 } 
@@ -123,7 +123,7 @@ void Enemy::positionSet(const float x, const float y)      //random position set
 	}
 }
 
-float Enemy::randYfloat()				//rand y float for the rocket
+int Enemy::randYfloat()				//rand y float for the rocket
 {
 	randY = std::rand() % 480 + 80;
 	return randY;

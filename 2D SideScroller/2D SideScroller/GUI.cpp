@@ -5,11 +5,12 @@
 
 void GUI::initVariables()					// initialise variables
 {
+	this->backgroundPos = 0;
 	this->powerTime = 0;
-	this->countUp = 0.f;
+	this->countUp = 0;
 	this->score = 0;
-	this->scoreUp = 5.f;
-	this->lives = 5.f;
+	this->scoreUp = 5;
+	this->lives = 5;
 	this->invincibility = false;
 	this->addLivesBool = false;
 	this->addScoreBool = false;
@@ -63,13 +64,33 @@ void GUI::initpowerUp()						//initialise power up text
 
 void GUI::initBackground()				//initialise background
 {
-	if (!this->backgroundTexture.loadFromFile("Textures/background_InGame.png"))
+	if (!this->groundBackgroundTexture.loadFromFile("Textures/Ground_Background_inGame.png"))
 	{
 		std::cerr << "No font file found!" << std::endl;
 	}
-	this->backgroundSprite.setTexture(this->backgroundTexture);
-	this->backgroundSprite.setScale(.5f, .9f);
+	this->groundBackgroundSprite.setTexture(this->groundBackgroundTexture);
+	this->groundBackgroundSprite.setScale(1.3, 1);
+	this->groundBackgroundSprite.setPosition(0, -500);
 
+	if (!this->spaceBackgroundTexture.loadFromFile("Textures/Space_Background_inGame.jpg"))
+	{
+		std::cerr << "No font file found!" << std::endl;
+	}
+	this->spaceBackgroundSprite.setTexture(this->spaceBackgroundTexture);
+	this->spaceBackgroundSprite.setScale(1, 2);
+	this->spaceBackgroundSprite.setPosition(0, -2200);
+
+	if (!this->deepSpaceBackgroundTexture.loadFromFile("Textures/Deep_Space_Background_inGame.jpg"))
+	{
+		std::cerr << "No font file found!" << std::endl;
+	}
+	this->deepSpaceBackgroundSprite.setTexture(this->deepSpaceBackgroundTexture);
+	this->deepSpaceBackgroundSprite.setScale(1, 2);
+	this->deepSpaceBackgroundSprite.setPosition(0, -4000);
+
+	//Ground_Background_inGame
+	//Space_Background_inGame
+	//Deep_Space_Background_inGame
 }
 
 float GUI::clockUpdate()					//return clock number
@@ -80,11 +101,13 @@ float GUI::clockUpdate()					//return clock number
 int GUI::scoreUpdate()						//updates score 
 {
 	if (this->countUp > this->scoreUp) {
-		this->scoreUp += 5.f;
-		this->score += 20.f;
+		this->scoreUp += 5;
+		this->score += 20;
 		return this->score;
 	}
 }
+
+
 
 int GUI::livesUpdate()						//returns lives
 {
@@ -151,16 +174,25 @@ void GUI::powerUpdate()						//updates power up text and dissapear overtime
 	}
 }
 
+void GUI::BackgroundUpdate()
+{
+	this->backgroundVelocity.y = 0.1;
+	this->groundBackgroundSprite.move(this->backgroundVelocity);
+	this->spaceBackgroundSprite.move(this->backgroundVelocity);
+	this->deepSpaceBackgroundSprite.move(this->backgroundVelocity);
+}
+
+
 GUI::GUI()				//constuctor
 {
 	this->initVariables();
+	this->initBackground();
 	this->initFont();
 	this->initClock();
 	this->initScore();
 	this->initLives();
 	this->initpowerUp();
 	this->initEndGame();
-	this->initBackground();
 }
 
 GUI::~GUI()				//deconstructor
@@ -193,6 +225,7 @@ void GUI::toLivesString()												//turns the lives number to string to show 
 
 void GUI::update()							//update function
 {
+	this->BackgroundUpdate();
 	this->clockUpdate();
 	this->toClockString();
 	this->scoreUpdate();
@@ -203,8 +236,10 @@ void GUI::update()							//update function
 }
 
 void GUI::render(sf::RenderTarget & rTarget)		//render targets
-{
-	rTarget.draw(backgroundSprite);
+{	
+	rTarget.draw(deepSpaceBackgroundSprite);
+	rTarget.draw(spaceBackgroundSprite);
+	rTarget.draw(groundBackgroundSprite);
 	rTarget.draw(timerText);
 	rTarget.draw(scoreText);
 	rTarget.draw(livesText);

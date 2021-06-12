@@ -51,7 +51,7 @@ public:
 	int rocketNumber; //Number of which rocket
 
 	//Functions
-	float randYfloat();
+	int randYfloat();
 
 	const sf::Vector2f getPosition() const;		
 	const sf::FloatRect windowBounds() const;	

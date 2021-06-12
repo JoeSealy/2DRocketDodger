@@ -15,16 +15,24 @@ private:
 	sf::Clock powerClock;
 	
 	//Background
-	sf::Texture backgroundTexture;
-	sf::Sprite backgroundSprite;
+	sf::Texture groundBackgroundTexture;
+	sf::Texture spaceBackgroundTexture;
+	sf::Texture deepSpaceBackgroundTexture;
+	sf::Sprite groundBackgroundSprite;
+	sf::Sprite spaceBackgroundSprite;
+	sf::Sprite deepSpaceBackgroundSprite;
+	sf::Vector2f backgroundVelocity;
 
 	std::string countUpStr;
 	std::string scoreUpStr;
 	std::string livesStr;
 
+
+
 	//Variables
 	int scoreUp;		//adds score over time
-	int powerTime;		//Duration of power up
+	float backgroundSpeed;		//background Speed
+	float powerTime;		//Duration of power up
 
 	//Functions
 	void initVariables();
@@ -34,9 +42,7 @@ private:
 	void initLives();
 	void initEndGame();
 	void initpowerUp();
-
 	void initBackground();
-
 
 
 public:
@@ -47,6 +53,7 @@ public:
 	//SFML Variables
 	sf::Text scoreText;
 	sf::Text endGameText;
+	
 
 	//Variables
 	bool invincibility;		//check invincibility
@@ -56,6 +63,7 @@ public:
 
 	float countUp;			//time
 
+	int backgroundPos;
 	int lives;				//amount lives
 	int score;				// adds to score
 
@@ -64,12 +72,18 @@ public:
 
 	int scoreUpdate();		
 	int livesUpdate();
+	void BackgroundUpdate();
 
 	void toClockString();
 	void toScoreString();
 	void toLivesString();
 
 	void powerUpdate();
+
+	void BackgroundPositionSet(const float x, const float y);
+
+	
+	
 	void update();
 	void render(sf::RenderTarget& rTarget);
 

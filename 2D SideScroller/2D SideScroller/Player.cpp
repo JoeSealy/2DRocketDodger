@@ -167,43 +167,43 @@ void Player::updateAnimation()									//update animations
 	}
 	else if (this->animState == PLAYER_ANIMATION_STATES::MOVING_RIGHT)
 	{
-		if (this->stateTimer.getElapsedTime().asSeconds() >= 0.1f || this->animSwitch())
+		if (this->stateTimer.getElapsedTime().asSeconds() >= 0.1 || this->animSwitch())
 		{
-			this->currentFrame.top = 50.f;
-			this->currentFrame.left += 40.f;
-			if (this->currentFrame.left >= 360.f)
+			this->currentFrame.top = 50;
+			this->currentFrame.left += 40;
+			if (this->currentFrame.left >= 360)
 				this->currentFrame.left = 0;
 			
 
 			this->stateTimer.restart();
 			this->sprite.setTextureRect(this->currentFrame);
 		}
-		this->sprite.setScale(1.5f, 1.5f);
-		this->sprite.setOrigin(0.f, 0.f);
+		this->sprite.setScale(1.5, 1.5);
+		this->sprite.setOrigin(0, 0);
 	}
 	else if (this->animState == PLAYER_ANIMATION_STATES::MOVING_LEFT)
 	{
 		if (this->stateTimer.getElapsedTime().asSeconds() >= 0.1f || this->animSwitch())
 		{
-			this->currentFrame.top = 50.f;
-			this->currentFrame.left += 40.f;
-			if (this->currentFrame.left >= 360.f)
+			this->currentFrame.top = 50;
+			this->currentFrame.left += 40;
+			if (this->currentFrame.left >= 360)
 				this->currentFrame.left = 0;
 			
 
 			this->stateTimer.restart();
 			this->sprite.setTextureRect(this->currentFrame);
 		}
-		this->sprite.setScale(-1.5f, 1.5f);
-		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 1.5f, 0.f);
+		this->sprite.setScale(-1.5, 1.5);
+		this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 1.5, 0.);
 	}
 	else if (this->animState == PLAYER_ANIMATION_STATES::JUMPING)
 	{
-		if (this->stateTimer.getElapsedTime().asSeconds() >= 0.01f || this->animSwitch())
+		if (this->stateTimer.getElapsedTime().asSeconds() >= 0.01 || this->animSwitch())
 		{
 
 			this->currentFrame.top = 150;
-			this->currentFrame.left = 0.f;
+			this->currentFrame.left = 0;
 
 			this->stateTimer.restart();
 			this->sprite.setTextureRect(this->currentFrame);
@@ -212,29 +212,19 @@ void Player::updateAnimation()									//update animations
 	}
 	else if (this->animState == PLAYER_ANIMATION_STATES::FALLING)
 	{
-		if (this->stateTimer.getElapsedTime().asSeconds() >= 20.f || this->animSwitch())
+		if (this->stateTimer.getElapsedTime().asSeconds() >= 20 || this->animSwitch())
 		{
 
 			this->currentFrame.top = 200;
-			this->currentFrame.left = 0.f;
-			this->currentFrame.left += 40.f;
-			if (this->currentFrame.left >= 40.f)
-				this->currentFrame.left = 0.f;
+			this->currentFrame.left = 0;
+			this->currentFrame.left += 40;
+			if (this->currentFrame.left >= 40)
+				this->currentFrame.left = 0;
 
 			this->stateTimer.restart();
 			this->sprite.setTextureRect(this->currentFrame);
 		}
 	}
-	//else if (this->animState == PLAYER_ANIMATION_STATES::CROUCH)						
-	//{
-	//	if (this->stateTimer.getElapsedTime().asSeconds() >= 1.f || this->animSwitch())
-	//	{
-	//		//this->sprite.setTextureRect(this->currentFrame);
-	//	}
-	//	this->sprite.setScale(1.5, 0.75);
-	//	this->sprite.setOrigin(this->sprite.getGlobalBounds().height / 1.5f, 1.f);
-	//	this->stateTimer.restart();
-	//}
 	else
 		this->stateTimer.restart();
 }
@@ -283,11 +273,6 @@ void Player::keyPress()																//key press activates animation music for
 	{
 		this->animState = PLAYER_ANIMATION_STATES::FALLING;
 	}
-	
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))								//CROUCHING KEY	
-	//{
-	//	this->animState = PLAYER_ANIMATION_STATES::CROUCH;
-	//}
 
 }
 

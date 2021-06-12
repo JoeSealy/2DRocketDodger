@@ -58,7 +58,6 @@ void Game::initMusic()				//initialise music
 Game::Game()	
 {
 	this->initwindow();
-	//this->initBackground();
 	this->initMenu();
 	this->initPlayer();
 	this->initEnemy();
@@ -401,6 +400,7 @@ void Game::render()
 		}
 	}
 	this->window.display();
+	this->window.clear();
 }
 
 
