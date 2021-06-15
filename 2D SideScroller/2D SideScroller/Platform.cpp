@@ -13,7 +13,7 @@ void Platform::initVariables()
 
 void Platform::initTexture()
 {
-	if (!this->texture.loadFromFile("Textures/platform_InGame.jpg"))
+	if (!this->texture.loadFromFile("Textures/platform_InGame.png"))
 	{
 		std::cout << "ERROR Platform file is not available";
 	}
@@ -21,20 +21,27 @@ void Platform::initTexture()
 
 void Platform::initSprite()
 {
-	this->platform.setTexture(this->texture);
-	this->currentFrame = sf::IntRect(2, 270, 32, 70);
-	this->platform.setTextureRect(this->currentFrame);
-	this->platform.setScale(1, 1);
-	this->platform.setRotation(-90);
-	srand(time(NULL));
-	for (int i = 0; i < 6; i++) {
-		this->platform.setPosition(this->randXfloat(), 0);
-		//this->platform.push_back(platform);
-	}
+	this->platformStart.setTexture(this->texture);
+	this->currentStart = sf::IntRect(2, 270, 32, 70);
+	this->platformStart.setTextureRect(this->currentStart);
+
+	this->platformShort.setTexture(this->texture);
+	this->currentShort = sf::IntRect(2, 270, 32, 70);
+	this->platformShort.setTextureRect(this->currentShort);
+
+	this->platformMedium.setTexture(this->texture);
+	this->currentMedium = sf::IntRect(2, 270, 32, 70);
+	this->platformMedium.setTextureRect(this->currentMedium);
+
+	this->platformLong.setTexture(this->texture);
+	this->currentLong = sf::IntRect(2, 270, 32, 70);
+	this->platformLong.setTextureRect(this->currentLong);
+
 }
 
 void Platform::initPhysics()
 {
+
 }
 
 //public
@@ -61,22 +68,43 @@ int Platform::randXfloat()
 
 const sf::Vector2f Platform::getPosition() const
 {
-	return sf::Vector2f();
+	return this->platformStart.getPosition();
+	return this->platformShort.getPosition();
+	return this->platformMedium.getPosition();
+	return this->platformLong.getPosition();
 }
 
 const sf::FloatRect Platform::windowBounds() const
 {
-	return sf::FloatRect();
+	return this->platformStart.getGlobalBounds();
+	return this->platformShort.getGlobalBounds();
+	return this->platformMedium.getGlobalBounds();
+	return this->platformLong.getGlobalBounds();
 }
 
 void Platform::positionSet(const float x, const float y)
 {
 }
 
+void Platform::updatePlatformSize()
+{
+}
+
+void Platform::updatePlatformPhysics()
+{
+	
+}
+
 void Platform::update()
 {
+	this->updatePlatformSize();
+	this->updatePlatformPhysics();
 }
 
 void Platform::render(sf::RenderTarget & rTarget)
 {
+	rTarget.draw(this->platformStart);
+	rTarget.draw(this->platformShort);
+	rTarget.draw(this->platformMedium);
+	rTarget.draw(this->platformLong);
 }

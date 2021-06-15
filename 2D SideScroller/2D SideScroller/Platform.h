@@ -2,18 +2,23 @@
 #include "stdafx.h"
 #include "GUI.h"
 
-enum PLATFORM_ANIMATION_STATES { SMALL = 0, MEDIUM, MEDIUM2, LONG };
-
 class Platform
 {
 private:
 
 	//SFML Variables
-	sf::Sprite platform;
+	sf::Sprite platformStart;
+	sf::Sprite platformShort;
+	sf::Sprite platformMedium;
+	sf::Sprite platformLong;
+	sf::IntRect currentStart;
+	sf::IntRect currentShort;
+	sf::IntRect currentMedium;
+	sf::IntRect currentLong;
+
 	sf::Texture texture;
 	sf::Vector2f velocity;
 	sf::Event event;
-	sf::IntRect currentFrame;
 
 	//Object
 	GUI* gui;
@@ -55,8 +60,8 @@ public:
 	const sf::Vector2f getPosition() const;
 	const sf::FloatRect windowBounds() const;
 	void positionSet(const float x, const float y);
-	void updateAnimation();
-	void updateRocketPhysics();
+	void updatePlatformSize();
+	void updatePlatformPhysics();
 	void update();
 	void render(sf::RenderTarget& rTarget);
 };

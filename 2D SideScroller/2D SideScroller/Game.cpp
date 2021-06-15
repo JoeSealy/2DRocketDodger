@@ -35,6 +35,11 @@ void Game::initPowerUp()			//initialise power up
 	this->powerup= new PowerUp();
 }
 
+void Game::initPlatform()			//initialise power up
+{
+	this->platform = new Platform();
+}
+
 void Game::initMusic()				//initialise music
 {
 	this->musicMenu.openFromFile("Music/MusicMenu.wav");
@@ -64,6 +69,7 @@ Game::Game()
 	this->initGUI();
 	this->initPowerUp();
 	this->initMusic();
+	this->initPlatform();
 }
 
 //deconstructor
@@ -74,6 +80,7 @@ Game::~Game()
 	delete this->player;
 	delete this->gui;
 	delete this->powerup;
+	delete this->platform;
 }
 
 //accessors
@@ -143,6 +150,16 @@ void Game::powerUpUpdate()						//update power
 void Game::powerUpRender()						//render power up
 {
 	this->powerup->render(this->window);
+}
+
+void Game::platformUpdate()						//update enemy
+{
+	this->platform->update();
+}
+
+void Game::platformRender()						//render enemy
+{
+	this->platform->render(this->window);
 }
 
 void Game::collisionUpdate()
@@ -357,6 +374,7 @@ void Game::update()
 			this->playerUpdate();
 			this->collisionCheck();
 			this->collisionUpdate();
+			this->platformUpdate();
 			this->powerUpUpdate();
 			if (this->musicStageInt == 1)
 			{
@@ -377,6 +395,8 @@ void Game::render()
 		this->MenuRender();
 	}
 	else{
+		this->platformUpdate();
+
 		this->guiRender();
 
 		this->powerUpRender();

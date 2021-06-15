@@ -5,6 +5,7 @@
 #include "GUI.h"
 #include "stdafx.h"
 #include "PowerUp.h"
+#include "Platform.h"
 
 class Game
 {
@@ -25,6 +26,7 @@ private:
 	GUI* gui;
 	Menu* menu;
 	PowerUp* powerup;
+	Platform* platform;
 
 	//Extras
 	int musicStageInt;	//Music for each game state
@@ -40,6 +42,7 @@ private:
 	void initEnemy();
 	void initGUI();
 	void initPowerUp();
+	void initPlatform();
 	void initMenu();
 	void initMusic();
 
@@ -76,6 +79,10 @@ public:
 	//Powerup functions
 	void powerUpUpdate();
 	void powerUpRender();
+
+	//Platform functions
+	void platformUpdate();
+	void platformRender();
 
 	//Game functions
 	void powerups();
