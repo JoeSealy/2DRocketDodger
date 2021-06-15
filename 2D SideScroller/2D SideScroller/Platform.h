@@ -1,6 +1,9 @@
 #pragma once
 #include "stdafx.h"
 #include "GUI.h"
+
+enum PLATFORM_ANIMATION_STATES { SMALL = 0, MEDIUM, MEDIUM2, LONG };
+
 class Platform
 {
 private:
@@ -9,6 +12,8 @@ private:
 	sf::Sprite platform;
 	sf::Texture texture;
 	sf::Vector2f velocity;
+	sf::Event event;
+	sf::IntRect currentFrame;
 
 	//Object
 	GUI* gui;
@@ -16,7 +21,7 @@ private:
 	//variables
 	int shortArrayInt;  //number of the rocket
 
-	float randY;		//rand Y value each time
+	float randX;		//rand Y value each time
 	float accel;		//Acceleration
 	float Speed;		//Speed
 	float minSpeed;		//Minimum Speed
@@ -42,11 +47,10 @@ public:
 	std::vector<sf::Sprite> rocket_list;
 
 	//variables
-	float slowSpeed; //PowerUp slows rocket
-	int rocketNumber; //Number of which rocket
+	float slowSpeed; //PowerUp slows platform speed
 
 	//Functions
-	int randYfloat();
+	int randXfloat();
 
 	const sf::Vector2f getPosition() const;
 	const sf::FloatRect windowBounds() const;
