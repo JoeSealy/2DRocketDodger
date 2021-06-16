@@ -40,6 +40,11 @@ void Game::initPlatform()			//initialise power up
 	this->platform = new Platform();
 }
 
+void Game::initBackground()
+{
+	this->background = new Background();
+}
+
 void Game::initMusic()				//initialise music
 {
 	this->musicMenu.openFromFile("Music/MusicMenu.wav");
@@ -56,7 +61,6 @@ void Game::initMusic()				//initialise music
 	this->musicStageInt = 0;
 }
 
-
 ///////////////////Public////////////////////
 
 //conscructor
@@ -70,6 +74,7 @@ Game::Game()
 	this->initPowerUp();
 	this->initMusic();
 	this->initPlatform();
+	this->initBackground();
 }
 
 //deconstructor
@@ -81,6 +86,7 @@ Game::~Game()
 	delete this->gui;
 	delete this->powerup;
 	delete this->platform;
+	delete this->background;
 }
 
 //accessors
@@ -152,14 +158,24 @@ void Game::powerUpRender()						//render power up
 	this->powerup->render(this->window);
 }
 
-void Game::platformUpdate()						//update enemy
+void Game::platformUpdate()						//update platform
 {
 	this->platform->update();
 }
 
-void Game::platformRender()						//render enemy
+void Game::platformRender()						//render platform
 {
 	this->platform->render(this->window);
+}
+
+void Game::BackgroundUpdate()						//update background
+{
+	this->background->update();
+}
+
+void Game::backgroundRender()						//render background
+{
+	this->background->render(this->window);
 }
 
 void Game::collisionUpdate()
@@ -372,10 +388,11 @@ void Game::update()
 			this->guiUpdate();
 			this->enemyUpdate();
 			this->playerUpdate();
+			this->platformUpdate();
+			this->BackgroundUpdate();
+			this->powerUpUpdate();
 			this->collisionCheck();
 			this->collisionUpdate();
-			this->platformUpdate();
-			this->powerUpUpdate();
 			if (this->musicStageInt == 1)
 			{
 				this->musicInGame.play();
@@ -395,11 +412,14 @@ void Game::render()
 		this->MenuRender();
 	}
 	else{
-		this->platformUpdate();
 
-		this->guiRender();
+		this->backgroundRender();
 
 		this->powerUpRender();
+
+		this->platformRender();
+
+		this->guiRender();
 												//game screen
 		this->enemyRender();
 

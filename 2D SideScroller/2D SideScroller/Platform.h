@@ -41,6 +41,7 @@ private:
 	void initVariables();
 	void initTexture();
 	void initSprite();
+	void initPosition();
 	void initPhysics();
 
 public:

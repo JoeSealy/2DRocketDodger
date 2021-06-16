@@ -13,15 +13,6 @@ private:
 
 	sf::Clock clock;
 	sf::Clock powerClock;
-	
-	//Background
-	sf::Texture groundBackgroundTexture;
-	sf::Texture spaceBackgroundTexture;
-	sf::Texture deepSpaceBackgroundTexture;
-	sf::Sprite groundBackgroundSprite;
-	sf::Sprite spaceBackgroundSprite;
-	sf::Sprite deepSpaceBackgroundSprite;
-	sf::Vector2f backgroundVelocity;
 
 	std::string countUpStr;
 	std::string scoreUpStr;
@@ -42,7 +33,6 @@ private:
 	void initLives();
 	void initEndGame();
 	void initpowerUp();
-	void initBackground();
 
 
 public:
@@ -72,7 +62,6 @@ public:
 
 	int scoreUpdate();		
 	int livesUpdate();
-	void BackgroundUpdate();
 
 	void toClockString();
 	void toScoreString();
@@ -80,9 +69,6 @@ public:
 
 	void powerUpdate();
 
-	void BackgroundPositionSet(const float x, const float y);
-
-	
 	
 	void update();
 	void render(sf::RenderTarget& rTarget);
