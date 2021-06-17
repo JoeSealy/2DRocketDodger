@@ -72,7 +72,7 @@ void PowerUp::updatePowerUpPhysics()	//power up physics once power up taken rese
 {		
 	if (!this->powerUpDrop)
 	{
-		this->velocity.y = 1.f;
+		this->velocity.y = 1.5f;
 	}
 
 	if (this->powerUpDrop){

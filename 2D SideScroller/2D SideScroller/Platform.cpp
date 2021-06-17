@@ -13,7 +13,7 @@ void Platform::initVariables()
 
 void Platform::initTexture()
 {
-	if (!this->texture.loadFromFile("Textures/platform_InGame.png"))
+	if (!this->texture.loadFromFile("Textures/platform_InGame.jpg"))
 	{
 		std::cout << "ERROR Platform file is not available";
 	}
@@ -22,7 +22,7 @@ void Platform::initTexture()
 void Platform::initSprite()
 {
 	this->platformStart.setTexture(this->texture);
-	this->currentStart = sf::IntRect(0, 0, 1024, 1024);
+	this->currentStart = sf::IntRect(30, 0, 700, 30);
 	this->platformStart.setTextureRect(this->currentStart);
 
 	this->platformShort.setTexture(this->texture);
@@ -41,7 +41,7 @@ void Platform::initSprite()
 
 void Platform::initPosition() 
 {
-	this->platformStart.setPosition(0, 0);
+	this->platformStart.setPosition(0, -30);
 	/*this->platformShort.setPosition();
 	this->platformMedium.setPosition();
 	this->platformLong.setPosition();*/
@@ -93,6 +93,10 @@ const sf::FloatRect Platform::windowBounds() const
 
 void Platform::positionSet(const float x, const float y)
 {
+	return this->platformStart.setPosition(x, y);
+	return this->platformShort.setPosition(x, y);
+	return this->platformMedium.setPosition(x, y);
+	return this->platformLong.setPosition(x, y);
 }
 
 void Platform::updatePlatformSize()
@@ -101,7 +105,8 @@ void Platform::updatePlatformSize()
 
 void Platform::updatePlatformPhysics()
 {
-	
+	this->velocity.y = 1;
+	this->platformStart.move(this->velocity);
 }
 
 void Platform::update()
