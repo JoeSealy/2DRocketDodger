@@ -26,15 +26,16 @@ void Platform::initSprite()
 	this->platformStart.setTextureRect(this->currentStart);
 
 	this->platformShort.setTexture(this->texture);
-	this->currentShort = sf::IntRect(2, 270, 32, 70);
+	this->currentShort = sf::IntRect(45, 215, 180, 25);
 	this->platformShort.setTextureRect(this->currentShort);
 
 	this->platformMedium.setTexture(this->texture);
-	this->currentMedium = sf::IntRect(2, 270, 32, 70);
+	this->currentMedium = sf::IntRect(45, 215, 180, 25);
 	this->platformMedium.setTextureRect(this->currentMedium);
+	this->platformMedium.setScale(2, 1);
 
 	this->platformLong.setTexture(this->texture);
-	this->currentLong = sf::IntRect(2, 270, 32, 70);
+	this->currentLong = sf::IntRect(0, 0, 700, 400);
 	this->platformLong.setTextureRect(this->currentLong);
 
 }
@@ -42,9 +43,9 @@ void Platform::initSprite()
 void Platform::initPosition() 
 {
 	this->platformStart.setPosition(0, -30);
-	/*this->platformShort.setPosition();
-	this->platformMedium.setPosition();
-	this->platformLong.setPosition();*/
+	this->platformShort.setPosition(0, -30);
+	this->platformMedium.setPosition(0, -30);
+	this->platformLong.setPosition(0, 0);
 }
 
 void Platform::initPhysics()
@@ -118,7 +119,7 @@ void Platform::update()
 void Platform::render(sf::RenderTarget & rTarget)
 {
 	rTarget.draw(this->platformStart);
-	/*rTarget.draw(this->platformShort);
+	rTarget.draw(this->platformShort);
 	rTarget.draw(this->platformMedium);
-	rTarget.draw(this->platformLong);*/
+	rTarget.draw(this->platformLong);
 }
