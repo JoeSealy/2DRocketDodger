@@ -21,6 +21,7 @@ void Platform::initTexture()
 
 void Platform::initSprite()
 {
+	srand(time(NULL));
 	this->platformStart.setTexture(this->texture);
 	this->currentStart = sf::IntRect(30, 0, 700, 30);
 	this->platformStart.setTextureRect(this->currentStart);
@@ -28,24 +29,37 @@ void Platform::initSprite()
 	this->platformShort.setTexture(this->texture);
 	this->currentShort = sf::IntRect(45, 215, 180, 25);
 	this->platformShort.setTextureRect(this->currentShort);
+	this->platformShort.setScale(0.7, 1);
+	for (int i = 0; i < 6; i++) {
+		this->platformShort.setPosition(randXfloat(), -30);
+		this->platform_List.push_back(platformShort);
+	}
 
 	this->platformMedium.setTexture(this->texture);
 	this->currentMedium = sf::IntRect(45, 215, 180, 25);
 	this->platformMedium.setTextureRect(this->currentMedium);
-	this->platformMedium.setScale(2, 1);
+	this->platformMedium.setScale(1.3, 1);
+	for (int i = 0; i < 6; i++) {
+		this->platformMedium.setPosition(randXfloat(), -30);
+		this->platform_List.push_back(platformMedium);
+	}
 
 	this->platformLong.setTexture(this->texture);
-	this->currentLong = sf::IntRect(0, 0, 700, 400);
+	this->currentLong = sf::IntRect(30, 362, 520, 38);
 	this->platformLong.setTextureRect(this->currentLong);
-
+	this->platformLong.setScale(0.7, 1);
+	for (int i = 0; i < 6; i++) {
+		this->platformLong.setPosition(randXfloat(), -30);
+		this->platform_List.push_back(platformLong);
+	}
 }
 
 void Platform::initPosition() 
 {
 	this->platformStart.setPosition(0, -30);
-	this->platformShort.setPosition(0, -30);
-	this->platformMedium.setPosition(0, -30);
-	this->platformLong.setPosition(0, 0);
+	this->platformShort.setPosition(200, 50);
+	this->platformMedium.setPosition(200, 100);
+	this->platformLong.setPosition(200, 150);
 }
 
 void Platform::initPhysics()
@@ -72,7 +86,7 @@ Platform::~Platform()
 
 int Platform::randXfloat()
 {
-	randX = std::rand() % 480 + 80;
+	randX = std::rand() % 400 + 80;
 	return randX;
 }
 

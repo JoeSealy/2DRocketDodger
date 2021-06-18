@@ -50,7 +50,7 @@ public:
 	virtual ~Platform();
 
 	//vector array
-	std::vector<sf::Sprite> rocket_list;
+	std::vector<sf::Sprite> platform_List;
 
 	//variables
 	float slowSpeed; //PowerUp slows platform speed
