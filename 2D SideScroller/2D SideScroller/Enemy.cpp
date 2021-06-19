@@ -61,22 +61,22 @@ const sf::Vector2f Enemy::getPosition() const			//Gets position of each rocket i
 {
 	switch (rocketNumber)
 	{
-		case 1:
+		case 0:
 			return this->rocket_list[0].getPosition();
 			break;
-		case 2:
+		case 1:
 			return this->rocket_list[1].getPosition();
 			break;
-		case 3:
+		case 2:
 			return this->rocket_list[2].getPosition();
 			break;
-		case 4:
+		case 3:
 			return this->rocket_list[3].getPosition();
 			break;
-		case 5:
+		case 4:
 			return this->rocket_list[4].getPosition();
 			break;
-		case 6:
+		case 5:
 			return this->rocket_list[5].getPosition();
 			break;
 

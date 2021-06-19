@@ -26,7 +26,9 @@ private:
 	//variables
 	int shortArrayInt;  //number of the rocket
 
-	float randX;		//rand Y value each time
+	int randXSmall;		//rand Y value each time
+	int randXMedium;
+	int randXLarge;
 	float accel;		//Acceleration
 	float Speed;		//Speed
 	float minSpeed;		//Minimum Speed
@@ -49,14 +51,19 @@ public:
 	Platform();
 	virtual ~Platform();
 
+	
+
 	//vector array
 	std::vector<sf::Sprite> platform_List;
 
 	//variables
 	float slowSpeed; //PowerUp slows platform speed
+	int platformNumber;
 
 	//Functions
-	int randXfloat();
+	int randXfloatSmall();
+	int randXfloatMedium();
+	int randXfloatLarge();
 
 	const sf::Vector2f getPosition() const;
 	const sf::FloatRect windowBounds() const;
