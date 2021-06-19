@@ -225,8 +225,7 @@ void Game::collisionUpdate()
 		if (this->enemy->rocket_list[i].getPosition().x + this->enemy->windowBounds().width < this->enemy->windowBounds().width)
 		{
 			this->enemy->rocketNumber = i;
-			this->enemy->positionSet(
-				this->window.getSize().x, this->enemy->rocket_list[i].getPosition().y);
+			this->enemy->positionSet(520, this->enemy->rocket_list[i].getPosition().y);
 		}
 	}
 
@@ -238,6 +237,15 @@ void Game::collisionUpdate()
 		this->powerup->powerUpDrop = true;
 	}
 
+	//------------------------------------------------------PLATFORM COLLISION WITH WINDOW-----------------------------------------------------
+	for (int j(0); j < 18; j++) 
+	{								//platform hit bottom side of screen reset position
+		if (this->platform->platform_List[j].getPosition().y + this->platform->windowBounds().height > this->window.getSize().y)
+		{
+			this->platform->platformNumber = j;
+			this->platform->positionSet(this->platform->platform_List[j].getPosition().x, -100.f);
+		}
+	}
 }
 	
 
@@ -415,9 +423,9 @@ void Game::render()
 
 		this->backgroundRender();
 
-		this->powerUpRender();
-
 		this->platformRender();
+
+		this->powerUpRender();
 
 		this->guiRender();
 												//game screen

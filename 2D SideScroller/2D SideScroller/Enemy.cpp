@@ -59,29 +59,7 @@ Enemy::~Enemy()
 
 const sf::Vector2f Enemy::getPosition() const			//Gets position of each rocket individualy
 {
-	switch (rocketNumber)
-	{
-		case 0:
-			return this->rocket_list[0].getPosition();
-			break;
-		case 1:
-			return this->rocket_list[1].getPosition();
-			break;
-		case 2:
-			return this->rocket_list[2].getPosition();
-			break;
-		case 3:
-			return this->rocket_list[3].getPosition();
-			break;
-		case 4:
-			return this->rocket_list[4].getPosition();
-			break;
-		case 5:
-			return this->rocket_list[5].getPosition();
-			break;
-
-	}
-	
+	return this->rocket_list[rocketNumber].getPosition();
 }
 
 const sf::FloatRect Enemy::windowBounds() const				//boundery of rockets
@@ -93,34 +71,8 @@ const sf::FloatRect Enemy::windowBounds() const				//boundery of rockets
 
 void Enemy::positionSet(const float x, const float y)      //random position set
 {
-	switch (rocketNumber)
-	{
-	case 0:
-		this->randYfloat();
-		return this->rocket_list[0].setPosition(x, this->randYfloat());
-		break;
-	case 1:
-		this->randYfloat();
-		return this->rocket_list[1].setPosition(x, this->randYfloat());
-		break;
-	case 2:
-		this->randYfloat();
-		return this->rocket_list[2].setPosition(x, this->randYfloat());
-		break;
-	case 3:
-		this->randYfloat();
-		return this->rocket_list[3].setPosition(x, this->randYfloat());
-		break;
-	case 4:
-		this->randYfloat();
-		return this->rocket_list[4].setPosition(x, this->randYfloat());
-		break;
-	case 5:
-		this->randYfloat();
-		return this->rocket_list[5].setPosition(x, this->randYfloat());
-		break;
-
-	}
+	this->randYfloat();
+	return this->rocket_list[rocketNumber].setPosition(x, this->randYfloat());
 }
 
 int Enemy::randYfloat()				//rand y float for the rocket
@@ -144,7 +96,7 @@ void Enemy::updateAnimation()								// Animation for the short rocket
 				this->shortArrayInt = 0;
 			}
 			this->stateTimer.restart();
-			for (int i = 0.f; i < rocket_list.size(); i++) {
+			for (int i = 0; i < rocket_list.size(); i++) {
 				this->rocket_list[i].setTextureRect(this->currentFrame);
 			}
 			
@@ -225,7 +177,7 @@ void Enemy::update()								//update
 
 void Enemy::render(sf::RenderTarget & rTarget)			//render
 {
-	for (int i = 0.f; i < rocket_list.size(); i++) {
+	for (int i = 0; i < rocket_list.size(); i++) {
 		rTarget.draw(this->rocket_list[i]);
 	}
 }
