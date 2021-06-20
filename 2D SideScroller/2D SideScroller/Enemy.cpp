@@ -77,7 +77,7 @@ void Enemy::positionSet(const float x, const float y)      //random position set
 
 int Enemy::randYfloat()				//rand y float for the rocket
 {
-	randY = std::rand() % 480 + 80;
+	randY = std::rand() % 400;
 	return randY;
 }
 

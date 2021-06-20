@@ -35,7 +35,6 @@ void Player::initPhysics()				//initialise physics
 {
 	this->jumpHeight = 30.f;
 	this->gravity = 2.f;
-	this->minSpeed = 1.f;
 	this->maxSpeed = 5.f;
 	this->accel = 5.f;
 	this->decel = 0.85f;
@@ -97,7 +96,7 @@ const sf::FloatRect Player::windowBounds() const	// bounderies of the sprite
 
 void Player::velocityReset()						//velocity resets
 {
-	this->velocity.y = 0.f;
+	this->velocity.y = 0;
 	this->canJump = true;
 }
 
@@ -122,7 +121,7 @@ void Player::valMove(const float dir_x, const float dir_y)  //value moves player
 		this->velocity.x = this->maxSpeed * ((this->velocity.x < 0.f) ? -1.f : 1.f);
 	}
 
-	if (std::abs(this->velocity.y) == 0.f)
+	if (std::abs(this->velocity.y) == 0)
 	{
 		this->velocity.y = dir_y;
 	}
@@ -132,17 +131,13 @@ void Player::valMove(const float dir_x, const float dir_y)  //value moves player
 void Player::updatePhysics()									//update physics of player
 {
 	
-	this->velocity.y += 1.f * this->gravity;
+	this->velocity.y += this->gravity;
+
 	this->velocity.x *= this->decel;
 
 	if (std::abs(this->velocity.x) < this->minSpeed)
 	{
 		this->velocity.x = 0.f;
-	}
-
-	if (std::abs(this->velocity.y) < this->minSpeed)
-	{
-		this->velocity.y = 0.f;
 	}
 
 	this->sprite.move(this->velocity);
@@ -228,6 +223,8 @@ void Player::updateAnimation()									//update animations
 	else
 		this->stateTimer.restart();
 }
+
+
 void Player::keyPress()																//key press activates animation music for actions 
 {
 	///////////Movement///////////
@@ -256,23 +253,22 @@ void Player::keyPress()																//key press activates animation music for
 
 	}
 	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && this->canJump == true)		//JUMPING KEY
-	{
-		this->canJump = false;
-
-		if (!this->jumpSound)
-		{
-			this->jumpSound = true;
-			this->musicPlay();
-		}
-		this->valMove(0.f, -30.f);
-		this->animState = PLAYER_ANIMATION_STATES::JUMPING;									
-	}
 	
-	if (std::abs(this->velocity.y) != 0.f)												//FALLING
-	{
-		this->animState = PLAYER_ANIMATION_STATES::FALLING;
-	}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))		//JUMPING KEY
+		{
+			if (this->canJump)
+			{
+				this->canJump = false;
+				this->valMove(0.f, -30.f);
+				this->animState = PLAYER_ANIMATION_STATES::JUMPING;
+			}
+		}
+	
+
+	//if (std::abs(this->velocity.y) != 0)												//FALLING
+	//{
+	//	this->animState = PLAYER_ANIMATION_STATES::FALLING;
+	//}
 
 }
 

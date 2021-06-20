@@ -32,7 +32,7 @@ void Platform::initSprite()
 	this->platformShort.setScale(0.7, 1);
 
 	for (int i = 0; i < 6; i++) {
-		this->platformShort.setPosition(this->randX(), -30);
+		this->platformShort.setPosition(this->randX(), -50);
 		this->platform_List.push_back(platformShort);
 	}
 
@@ -42,7 +42,7 @@ void Platform::initSprite()
 	this->platformMedium.setScale(1.3, 1);
 
 	for (int i = 0; i < 6; i++) {
-		this->platformMedium.setPosition(this->randX(), -30);
+		this->platformMedium.setPosition(this->randX(), -50);
 		this->platform_List.push_back(platformMedium);
 	}
 
@@ -52,7 +52,7 @@ void Platform::initSprite()
 	this->platformLong.setScale(0.7, 1);
 
 	for (int i = 0; i < 6; i++) {
-		this->platformLong.setPosition(this->randX(), -30);
+		this->platformLong.setPosition(this->randX(), -50);
 		this->platform_List.push_back(platformLong);
 	}
 }
@@ -104,13 +104,12 @@ void Platform::positionSet(const float x, const float y)
 
 void Platform::updatePlatformPhysics()
 {
-
-	this->velocity.y = 1;
+	(this->velocity.y) = 1;
 
 	this->platformStart.move(this->velocity);
 
 	if (this->gui->clockUpdate() > 5.f) {
-		for (int i = 0; i <= 5; i++)
+		for (int i = 0; i <= 0; i++)
 		{
 			this->platform_List[i].move(this->velocity);
 		}

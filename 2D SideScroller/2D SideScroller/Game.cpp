@@ -225,7 +225,7 @@ void Game::collisionUpdate()
 		if (this->enemy->rocket_list[i].getPosition().x + this->enemy->windowBounds().width < this->enemy->windowBounds().width)
 		{
 			this->enemy->rocketNumber = i;
-			this->enemy->positionSet(520, this->enemy->rocket_list[i].getPosition().y);
+			this->enemy->positionSet(600, this->enemy->rocket_list[i].getPosition().y);
 		}
 	}
 
@@ -237,15 +237,41 @@ void Game::collisionUpdate()
 		this->powerup->powerUpDrop = true;
 	}
 
-	//------------------------------------------------------PLATFORM COLLISION WITH WINDOW-----------------------------------------------------
-	for (int j(0); j < 18; j++) 
+	//------------------------------------------------------PLATFORM COLLISION WITH WINDOW AND PLAYER-----------------------------------------------------
+	for (int i(0); i < 18; i++)
 	{								//platform hit bottom side of screen reset position
-		if (this->platform->platform_List[j].getPosition().y + this->platform->windowBounds().height > this->window.getSize().y)
+		if (this->platform->platform_List[i].getPosition().y + this->platform->windowBounds().height > this->window.getSize().y)
 		{
-			this->platform->platformNumber = j;
-			this->platform->positionSet(this->platform->platform_List[j].getPosition().x, -100.f);
+			this->platform->platformNumber = i;
+			this->platform->positionSet(this->platform->platform_List[i].getPosition().x, -100.f);
 		}
 	}
+
+
+
+
+	for (int i(0); i < 18; i++)
+	{
+		if (this->platform->platform_List[i].getPosition().y > 0)
+		{
+			if (this->player->getPosition().y + this->player->windowBounds().height <
+				this->platform->platform_List[i].getPosition().y + this->platform->windowBounds().height)
+			{
+
+				if ((this->player->getPosition().y + this->player->windowBounds().height >
+					this->platform->platform_List[i].getPosition().y - this->platform->windowBounds().height) 
+					&& !(this->player->getPosition().x > 
+						this->platform->platform_List[i].getPosition().x + this->platform->windowBounds().width)
+					&& !(this->player->getPosition().x + this->player->windowBounds().width < this->platform->platform_List[i].getPosition().x))
+				{
+					this->player->velocityReset();
+					this->platform->platformNumber = i;
+					this->player->positionSet(this->player->getPosition().x, this->platform->platform_List[i].getPosition().y - this->player->windowBounds().height);
+				}
+			}
+		}
+	}
+
 }
 	
 
@@ -395,8 +421,8 @@ void Game::update()
 		{
 			this->guiUpdate();
 			this->enemyUpdate();
-			this->playerUpdate();
 			this->platformUpdate();
+			this->playerUpdate();
 			this->BackgroundUpdate();
 			this->powerUpUpdate();
 			this->collisionCheck();
