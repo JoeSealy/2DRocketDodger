@@ -238,7 +238,7 @@ void Game::collisionUpdate()
 	}
 
 	//------------------------------------------------------PLATFORM COLLISION WITH WINDOW AND PLAYER-----------------------------------------------------
-	for (int i(0); i < 18; i++)
+	for (int i(0); i < platform->platform_List.size(); i++)
 	{								//platform hit bottom side of screen reset position
 		if (this->platform->platform_List[i].getPosition().y + this->platform->windowBounds().height > this->window.getSize().y)
 		{
@@ -248,25 +248,22 @@ void Game::collisionUpdate()
 	}
 
 
-
-
-	for (int i(0); i < 18; i++)
+	for (int i(0); i < this->platform->platform_List.size(); i++)
 	{
 		if (this->platform->platform_List[i].getPosition().y > 0)
 		{
 			if (this->player->getPosition().y + this->player->windowBounds().height <
 				this->platform->platform_List[i].getPosition().y + this->platform->windowBounds().height)
 			{
-
-				if ((this->player->getPosition().y + this->player->windowBounds().height >
-					this->platform->platform_List[i].getPosition().y - this->platform->windowBounds().height) 
-					&& !(this->player->getPosition().x > 
-						this->platform->platform_List[i].getPosition().x + this->platform->windowBounds().width)
-					&& !(this->player->getPosition().x + this->player->windowBounds().width < this->platform->platform_List[i].getPosition().x))
+				if ((this->player->getPosition().y + this->player->windowBounds().height > this->platform->platform_List[i].getPosition().y - this->platform->windowBounds().height))
 				{
-					this->player->velocityReset();
-					this->platform->platformNumber = i;
-					this->player->positionSet(this->player->getPosition().x, this->platform->platform_List[i].getPosition().y - this->player->windowBounds().height);
+					if (!(this->player->getPosition().x > this->platform->platform_List[i].getPosition().x + this->platform->windowBounds().width)
+					 && !(this->player->getPosition().x + this->player->windowBounds().width < this->platform->platform_List[i].getPosition().x))
+					{
+						this->player->velocityReset();
+						this->platform->platformNumber = i;
+						this->player->positionSet(this->player->getPosition().x, this->platform->platform_List[i].getPosition().y - this->player->windowBounds().height);
+					}
 				}
 			}
 		}

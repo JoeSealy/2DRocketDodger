@@ -20,13 +20,19 @@ private:
 	sf::Vector2f velocity;
 	sf::Event event;
 
+	//clock
+	sf::Clock platformClock;
+
 	//Object
 	GUI* gui;
 
 	//variables
 	int shortArrayInt;  //number of the rocket
-
 	int randXint;		//rand Y value each time
+	int clockNumber;
+	int platformClockInt;
+
+
 	float accel;		//Acceleration
 	float Speed;		//Speed
 	float minSpeed;		//Minimum Speed
@@ -41,7 +47,6 @@ private:
 	void initVariables();
 	void initTexture();
 	void initSprite();
-	void initPhysics();
 
 public:
 	//constructor/deconstuctor
@@ -61,7 +66,6 @@ public:
 	const sf::Vector2f getPosition() const;
 	const sf::FloatRect windowBounds() const;
 	void positionSet(const float x, const float y);
-	void updatePlatform();
 	void updatePlatformPhysics();
 	void update();
 	void render(sf::RenderTarget& rTarget);

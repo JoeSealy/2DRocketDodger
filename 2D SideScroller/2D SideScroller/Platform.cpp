@@ -8,7 +8,7 @@ void Platform::initGUI()
 
 void Platform::initVariables()
 {
-
+	this->clockNumber = 1;
 }
 
 void Platform::initTexture()
@@ -22,9 +22,12 @@ void Platform::initTexture()
 void Platform::initSprite()
 {
 	srand(time(NULL));
+
 	this->platformStart.setTexture(this->texture);
 	this->currentStart = sf::IntRect(30, 0, 700, 30);
 	this->platformStart.setTextureRect(this->currentStart);
+	this->platformStart.setPosition(0, 200);
+
 
 	this->platformShort.setTexture(this->texture);
 	this->currentShort = sf::IntRect(45, 215, 180, 25);
@@ -57,11 +60,6 @@ void Platform::initSprite()
 	}
 }
 
-void Platform::initPhysics()
-{
-
-}
-
 //public
 
 Platform::Platform()
@@ -69,7 +67,6 @@ Platform::Platform()
 	this->initSprite();
 	this->initVariables();
 	this->initTexture();
-	this->initPhysics();
 	this->initGUI();
 }
 
@@ -91,7 +88,8 @@ const sf::Vector2f Platform::getPosition() const
 
 const sf::FloatRect Platform::windowBounds() const
 {
-	for (int i = 0; i < platform_List.size(); i++) {
+	for (int i = 0; i < platform_List.size(); i++) 
+	{
 		return this->platform_List[i].getGlobalBounds();
 	}
 }
@@ -104,17 +102,19 @@ void Platform::positionSet(const float x, const float y)
 
 void Platform::updatePlatformPhysics()
 {
+	this->gui->clockUpdate();
+
 	(this->velocity.y) = 1;
 
-	this->platformStart.move(this->velocity);
+	std::srand(time(0));
+	this->platformClockInt  = platformClock.getElapsedTime().asSeconds();
 
 	if (this->gui->clockUpdate() > 5.f) {
-		for (int i = 0; i <= 0; i++)
-		{
-			this->platform_List[i].move(this->velocity);
-		}
+		this->easy();
+		this->velocity.y = 1;
+		this->platform_List[1].move(this->velocity);
 	}
-
+	
 }
 
 void Platform::update()
@@ -124,7 +124,6 @@ void Platform::update()
 
 void Platform::render(sf::RenderTarget & rTarget)
 {
-	rTarget.draw(this->platformStart);
 
 	for (int i = 0; i < platform_List.size(); i++) {
 		rTarget.draw(this->platform_List[i]);

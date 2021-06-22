@@ -121,7 +121,7 @@ void Player::valMove(const float dir_x, const float dir_y)  //value moves player
 		this->velocity.x = this->maxSpeed * ((this->velocity.x < 0.f) ? -1.f : 1.f);
 	}
 
-	if (std::abs(this->velocity.y) == 0)
+	if (std::abs(this->velocity.y) == 0 || this->canJump)
 	{
 		this->velocity.y = dir_y;
 	}
