@@ -12,6 +12,7 @@ private:
 	sf::Vector2f velocity;
 
 	sf::Clock stateTimer;
+	sf::Clock jumpClockDown;
 
 	//variables
 	float maxGravSpeed;	//max Garvity
@@ -21,13 +22,14 @@ private:
 	float decel;		//Deceleration
 	float maxSpeed;		//Top movement speed
 	float minSpeed;		//Lowest movement speed
+	float jumpCD;
 
 	bool animationDiff;	//Swap animation
 	bool canJump;			//jump if on floor
 	bool canPlatformJump; //platform jump
+	
 
 	short animState;	//what state the character is in
-
 
 	//Functions
 	void initVariables();
@@ -49,6 +51,7 @@ public:
 	//Variables
 	bool jumpSound;			//do jumping sound when jumping
 	bool runSound;			//do running sound when runnning
+	bool dropDown;
 
 	//functions
 	const sf::Vector2f getPosition()const;
@@ -62,6 +65,7 @@ public:
 	void resetAnimTimer();
 
 	void musicPlay();
+
 	
 	void updatePhysics();
 	void updateAnimation();

@@ -38,6 +38,8 @@ void Player::initPhysics()				//initialise physics
 	this->maxSpeed = 5.f;
 	this->accel = 5.f;
 	this->decel = 0.85f;
+	this->jumpCD = 0.f;
+	this->dropDown = false;
 }
 
 void Player::initMusic()				//initialise music
@@ -256,19 +258,49 @@ void Player::keyPress()																//key press activates animation music for
 	
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))		//JUMPING KEY
 		{
-			if (this->canJump)
+
+			this->jumpCD = jumpClockDown.getElapsedTime().asSeconds();
+
+			if ((this->jumpCD <= 0.f) || (this->jumpCD >= 1.f))
 			{
-				this->canJump = false;
-				this->valMove(0.f, -30.f);
-				this->animState = PLAYER_ANIMATION_STATES::JUMPING;
+
+				if (this->canJump)
+				{
+					this->canJump = false;
+					this->valMove(0.f, -28.f);
+					this->animState = PLAYER_ANIMATION_STATES::JUMPING;
+
+					if (this->jumpCD >= 1.f)
+					{
+						this->jumpCD = 0.f;
+						this->jumpClockDown.restart();
+					}
+
+				}
+
+				if (this->jumpCD >= 1.f)
+				{
+					this->jumpCD = 0.f;
+					this->jumpClockDown.restart();
+				}
+
 			}
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+		{
+			this->dropDown = true;
+		}
+		else
+		{
+			this->dropDown = false;
 		}
 	
 
-	//if (std::abs(this->velocity.y) != 0)												//FALLING
-	//{
-	//	this->animState = PLAYER_ANIMATION_STATES::FALLING;
-	//}
+	if (std::abs(this->velocity.y) != 0)												//FALLING
+	{
+		this->animState = PLAYER_ANIMATION_STATES::FALLING;
+	}
 
 }
 

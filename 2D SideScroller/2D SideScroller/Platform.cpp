@@ -9,6 +9,9 @@ void Platform::initGUI()
 void Platform::initVariables()
 {
 	this->clockNumber = 1;
+	this->easy = false;
+	this->medium = false;
+	this->hard = false;
 }
 
 void Platform::initTexture()
@@ -106,14 +109,93 @@ void Platform::updatePlatformPhysics()
 
 	(this->velocity.y) = 1;
 
-	std::srand(time(0));
-	this->platformClockInt  = platformClock.getElapsedTime().asSeconds();
-
-	if (this->gui->clockUpdate() > 5.f) {
-		this->easy();
-		this->velocity.y = 1;
-		this->platform_List[1].move(this->velocity);
+	if (this->gui->clockUpdate() > 2.f)
+	{
+		this->easy = true;
 	}
+
+	if (this->gui->clockUpdate() > 30.f)
+	{
+		if (this->gui->clockUpdate() > 36.f) {
+			this->platform_List[12].setPosition(0, -50);
+			this->platform_List[13].setPosition(0, -50);
+			this->platform_List[14].setPosition(0, -50);
+		}
+
+		this->easy = false;
+		this->medium = true;
+	}
+
+	if (this->gui->clockUpdate() > 60.f)
+	{
+
+		if (this->gui->clockUpdate() > 66.f) {
+			this->platform_List[6].setPosition(0, -50);
+			this->platform_List[7].setPosition(0, -50);
+			this->platform_List[8].setPosition(0, -50);
+		}
+
+		this->medium = false;
+		this->hard = true;
+	}
+
+
+	if (easy)
+	{
+		if (this->gui->clockUpdate() > 2.f) {
+			this->platform_List[12].move(this->velocity);
+		}
+
+		if (this->gui->clockUpdate() > 5.f) {
+			this->platform_List[13].move(this->velocity);
+		}
+
+		if (this->gui->clockUpdate() > 8.f) {
+			this->platform_List[14].move(this->velocity);
+		}
+
+	}
+
+	if (medium)
+	{
+		if (this->gui->clockUpdate() > 32.f) {
+			this->platform_List[6].move(this->velocity);
+		}
+
+		if (this->gui->clockUpdate() > 35.f) {
+			this->platform_List[7].move(this->velocity);
+		}
+
+		if (this->gui->clockUpdate() > 38.f) {
+			this->platform_List[8].move(this->velocity);
+		}
+
+	}
+
+	if (hard)
+	{
+		if (this->gui->clockUpdate() > 62.f) {
+			this->platform_List[0].move(this->velocity);
+		}
+
+		if (this->gui->clockUpdate() > 65.f) {
+			this->platform_List[1].move(this->velocity);
+		}
+
+		if (this->gui->clockUpdate() > 69.f) {
+			this->platform_List[2].move(this->velocity);
+		}
+
+		if (this->gui->clockUpdate() > 72.f) {
+			this->platform_List[3].move(this->velocity);
+		}
+
+		if (this->gui->clockUpdate() > 74.f) {
+			this->platform_List[4].move(this->velocity);
+		}
+
+	}
+	
 	
 }
 

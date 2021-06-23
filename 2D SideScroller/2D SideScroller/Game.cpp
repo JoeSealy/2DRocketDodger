@@ -184,14 +184,23 @@ void Game::collisionUpdate()
 
 
 	//bottom of screen collision
+
 	if (this->player->getPosition().y + this->player->windowBounds().height > this->window.getSize().y)
 	{
-		this->player->velocityReset();
-		this->player->positionSet(
-			this->player->getPosition().x,
-			this->window.getSize().y -
-			this->player->windowBounds().height);
+		if (this->gui->clockUpdate() > 10.f)
+		{
+			this->endGame = true;
+		}
+		else
+		{
+			this->player->velocityReset();
+			this->player->positionSet(
+				this->player->getPosition().x,
+				this->window.getSize().y -
+				this->player->windowBounds().height);
+		}
 	}
+	
 	//top side screen collision
 	if (this->player->getPosition().y + this->player->windowBounds().height < this->player->windowBounds().height)
 	{
@@ -240,35 +249,35 @@ void Game::collisionUpdate()
 	//------------------------------------------------------PLATFORM COLLISION WITH WINDOW AND PLAYER-----------------------------------------------------
 	for (int i(0); i < platform->platform_List.size(); i++)
 	{								//platform hit bottom side of screen reset position
-		if (this->platform->platform_List[i].getPosition().y + this->platform->windowBounds().height > this->window.getSize().y)
+		if (this->platform->platform_List[i].getPosition().y > this->window.getSize().y)
 		{
 			this->platform->platformNumber = i;
 			this->platform->positionSet(this->platform->platform_List[i].getPosition().x, -100.f);
 		}
 	}
 
-
-	for (int i(0); i < this->platform->platform_List.size(); i++)
+	if(!this->player->dropDown)
 	{
-		if (this->platform->platform_List[i].getPosition().y > 0)
+		for (int i(0); i < this->platform->platform_List.size(); i++)
 		{
-			if (this->player->getPosition().y + this->player->windowBounds().height <
-				this->platform->platform_List[i].getPosition().y + this->platform->windowBounds().height)
+			if (this->platform->platform_List[i].getPosition().y > 0)
 			{
-				if ((this->player->getPosition().y + this->player->windowBounds().height > this->platform->platform_List[i].getPosition().y - this->platform->windowBounds().height))
+				if (this->player->getPosition().y < this->platform->platform_List[i].getPosition().y - this->platform->platform_List[i].getGlobalBounds().height)
 				{
-					if (!(this->player->getPosition().x > this->platform->platform_List[i].getPosition().x + this->platform->windowBounds().width)
-					 && !(this->player->getPosition().x + this->player->windowBounds().width < this->platform->platform_List[i].getPosition().x))
+					if ((this->player->getPosition().y + this->player->windowBounds().height > this->platform->platform_List[i].getPosition().y))
 					{
-						this->player->velocityReset();
-						this->platform->platformNumber = i;
-						this->player->positionSet(this->player->getPosition().x, this->platform->platform_List[i].getPosition().y - this->player->windowBounds().height);
+						if (!(this->player->getPosition().x > this->platform->platform_List[i].getPosition().x + this->platform->platform_List[i].getGlobalBounds().width)
+							&& !(this->player->getPosition().x + this->player->windowBounds().width < this->platform->platform_List[i].getPosition().x))
+						{
+							this->player->velocityReset();
+							this->platform->platformNumber = i;
+							this->player->positionSet(this->player->getPosition().x, this->platform->platform_List[i].getPosition().y - this->player->windowBounds().height);
+						}
 					}
 				}
 			}
 		}
 	}
-
 }
 	
 
@@ -352,7 +361,7 @@ void Game::update()
 				this->menu->moveUp();
 			}
 
-			if (this->event.key.code == sf::Keyboard::S & !this->menu->startGame)
+			if (this->event.key.code == sf::Keyboard::S && !this->menu->startGame)
 			{
 				this->menu->moveDown();
 			}

@@ -41,6 +41,9 @@ private:
 	short animState;	//what state the character is in
 
 	bool animationDiff;	//Changes rocket 
+	bool easy;
+	bool medium;
+	bool hard;
 
 	//Functions
 	void initGUI();

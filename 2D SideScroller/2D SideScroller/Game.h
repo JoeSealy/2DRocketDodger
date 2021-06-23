@@ -33,6 +33,7 @@ private:
 	//Extras
 	int musicStageInt;	//Music for each game state
 	bool endGame;		//checks if end game
+	bool dropDown;
 
 
 	float deltaX[6], deltaY[6], intersectX[6], intersectY[6];					//check collision for each rocket

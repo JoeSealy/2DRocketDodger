@@ -84,11 +84,10 @@ void PowerUp::updatePowerUpPhysics()	//power up physics once power up taken rese
 
 		if (this->dropClockInt >= this->randDropClockInt)
 		{
-			dropClock.restart();
+			this->dropClock.restart();
 			this->powerUpDrop = false;
 		}
 	}
-
 
 	this->powerUp.move(this->velocity);
 }
