@@ -35,20 +35,20 @@ void Platform::initSprite()
 	this->platformShort.setTexture(this->texture);
 	this->currentShort = sf::IntRect(45, 215, 180, 25);
 	this->platformShort.setTextureRect(this->currentShort);
-	this->platformShort.setScale(0.7, 1);
+	this->platformShort.setScale(0.7f, 1.f);
 
 	for (int i = 0; i < 6; i++) {
-		this->platformShort.setPosition(this->randX(), -50);
+		this->platformShort.setPosition(this->randX(), -50.f);
 		this->platform_List.push_back(platformShort);
 	}
 
 	this->platformMedium.setTexture(this->texture);
 	this->currentMedium = sf::IntRect(45, 215, 180, 25);
 	this->platformMedium.setTextureRect(this->currentMedium);
-	this->platformMedium.setScale(1.3, 1);
+	this->platformMedium.setScale(1.3f, 1.f);
 
 	for (int i = 0; i < 6; i++) {
-		this->platformMedium.setPosition(this->randX(), -50);
+		this->platformMedium.setPosition(this->randX(), -50.f);
 		this->platform_List.push_back(platformMedium);
 	}
 
@@ -58,7 +58,7 @@ void Platform::initSprite()
 	this->platformLong.setScale(0.7, 1);
 
 	for (int i = 0; i < 6; i++) {
-		this->platformLong.setPosition(this->randX(), -50);
+		this->platformLong.setPosition(this->randX(), -50.f);
 		this->platform_List.push_back(platformLong);
 	}
 }
@@ -107,7 +107,12 @@ void Platform::updatePlatformPhysics()
 {
 	this->gui->clockUpdate();
 
-	(this->velocity.y) = 1;
+	(this->velocity.y) = 1 + (this->gui->clockUpdate() / 100);
+
+	if (this->velocity.y > 3)
+	{
+		this->velocity.y = 3;
+	}
 
 	if (this->gui->clockUpdate() > 2.f)
 	{
@@ -133,6 +138,7 @@ void Platform::updatePlatformPhysics()
 			this->platform_List[6].setPosition(0, -50);
 			this->platform_List[7].setPosition(0, -50);
 			this->platform_List[8].setPosition(0, -50);
+			this->platform_List[9].setPosition(0, -50);
 		}
 
 		this->medium = false;
@@ -162,36 +168,44 @@ void Platform::updatePlatformPhysics()
 			this->platform_List[6].move(this->velocity);
 		}
 
-		if (this->gui->clockUpdate() > 35.f) {
+		if (this->gui->clockUpdate() > 34.f) {
 			this->platform_List[7].move(this->velocity);
 		}
 
-		if (this->gui->clockUpdate() > 38.f) {
+		if (this->gui->clockUpdate() > 36.f) {
 			this->platform_List[8].move(this->velocity);
+		}
+
+		if (this->gui->clockUpdate() > 38.f) {
+			this->platform_List[9].move(this->velocity);
 		}
 
 	}
 
 	if (hard)
 	{
-		if (this->gui->clockUpdate() > 62.f) {
+		if (this->gui->clockUpdate() > 60.f) {
 			this->platform_List[0].move(this->velocity);
 		}
 
-		if (this->gui->clockUpdate() > 65.f) {
+		if (this->gui->clockUpdate() > 62.f) {
 			this->platform_List[1].move(this->velocity);
 		}
 
-		if (this->gui->clockUpdate() > 69.f) {
+		if (this->gui->clockUpdate() > 65.f) {
 			this->platform_List[2].move(this->velocity);
 		}
 
-		if (this->gui->clockUpdate() > 72.f) {
+		if (this->gui->clockUpdate() > 67.f) {
 			this->platform_List[3].move(this->velocity);
 		}
 
-		if (this->gui->clockUpdate() > 74.f) {
+		if (this->gui->clockUpdate() > 70.f) {
 			this->platform_List[4].move(this->velocity);
+		}
+
+		if (this->gui->clockUpdate() > 72.f) {
+			this->platform_List[5].move(this->velocity);
 		}
 
 	}

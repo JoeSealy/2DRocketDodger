@@ -21,7 +21,6 @@ void Enemy::initSprite()								//initialise sprite
 	this->rocket.setTextureRect(this->currentFrame);
 	this->rocket.setScale(1, 1);
 	this->rocket.setRotation(-90);
-	srand(time(NULL));
 	for (int i = 0; i < 6; i++) {
 		this->rocket.setPosition(640, this->randYfloat());
 		this->rocket_list.push_back(rocket);
@@ -106,7 +105,7 @@ void Enemy::updateAnimation()								// Animation for the short rocket
 
 void Enemy::updateRocketPhysics()								//update rocket physics over time
 {
-	/*this->gui->clockUpdate();
+	this->gui->clockUpdate();
 
 	if (this->gui->slowedRocketBool)
 	{
@@ -158,7 +157,7 @@ void Enemy::updateRocketPhysics()								//update rocket physics over time
 
 	if (this->gui->clockUpdate() > 150.f) {
 		this->velocity.x = this->minSpeed - 4.5f;
-	}*/
+	}
 
 	/*const int amountRocket(1.f + fmod(this->gui->countUp, 500.f));
 	for (int i = 0.f; i < ((amountRocket < rocket_list.size() + 1.f) ? amountRocket : rocket_list.size()); i++)

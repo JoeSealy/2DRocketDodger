@@ -261,7 +261,7 @@ void Player::keyPress()																//key press activates animation music for
 
 			this->jumpCD = jumpClockDown.getElapsedTime().asSeconds();
 
-			if ((this->jumpCD <= 0.f) || (this->jumpCD >= 1.f))
+			if ((this->jumpCD <= 0.f) || (this->jumpCD >= 0.5f))
 			{
 
 				if (this->canJump)
@@ -270,7 +270,7 @@ void Player::keyPress()																//key press activates animation music for
 					this->valMove(0.f, -28.f);
 					this->animState = PLAYER_ANIMATION_STATES::JUMPING;
 
-					if (this->jumpCD >= 1.f)
+					if (this->jumpCD >= 0.5f)
 					{
 						this->jumpCD = 0.f;
 						this->jumpClockDown.restart();
@@ -278,7 +278,7 @@ void Player::keyPress()																//key press activates animation music for
 
 				}
 
-				if (this->jumpCD >= 1.f)
+				if (this->jumpCD >= 0.5f)
 				{
 					this->jumpCD = 0.f;
 					this->jumpClockDown.restart();

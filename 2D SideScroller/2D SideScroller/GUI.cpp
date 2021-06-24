@@ -14,6 +14,7 @@ void GUI::initVariables()					// initialise variables
 	this->addLivesBool = false;
 	this->addScoreBool = false;
 	this->slowedRocketBool = false;
+	this->platMessage = true;
 }
 
 void GUI::initFont()						// initialise font
@@ -42,6 +43,14 @@ void GUI::initLives()						//initialise lives text
 	this->livesText.setFont(this->Font);
 	this->livesText.setPosition(250, 0);
 	this->livesText.setCharacterSize(30);
+}
+
+void GUI::initPlat()						//initialise lives text
+{
+	this->platText.setFont(this->Font);
+	this->platText.setPosition(100, 100);
+	this->platText.setFillColor(sf::Color::Red);
+	this->platText.setCharacterSize(50);
 }
 
 void GUI::initEndGame()						//initialise end game text
@@ -80,6 +89,13 @@ int GUI::scoreUpdate()						//updates score
 int GUI::livesUpdate()						//returns lives
 {
 	return this->lives;	
+}
+
+int GUI::platUpdate()
+{
+		plat = 10 - this->countUp;
+		return plat;
+	
 }
 
 void GUI::powerUpdate()						//updates power up text and dissapear overtime
@@ -130,7 +146,6 @@ void GUI::powerUpdate()						//updates power up text and dissapear overtime
 
 	if (this->slowedRocketBool)					//slowed rockets text
 	{
-		std::srand(time(0));
 		this->powerTime = this->powerClock.getElapsedTime().asSeconds();
 		this->PowerUpText.setString("Rockets Slowed");
 		if (this->powerTime >= 10)
@@ -152,6 +167,7 @@ GUI::GUI()				//constuctor
 	this->initLives();
 	this->initpowerUp();
 	this->initEndGame();
+	this->initPlat();
 }
 
 GUI::~GUI()				//deconstructor
@@ -182,6 +198,15 @@ void GUI::toLivesString()												//turns the lives number to string to show 
 	livesText.setString("lives: " + this->livesStr);
 }
 
+void GUI::toPlatString()
+{
+	std::ostringstream covertPlat;
+	covertPlat << this->plat;
+	this->platStr = covertPlat.str();
+	platText.setString("Get to a platform: " + this->platStr);
+}
+
+
 void GUI::update()							//update function
 {
 	this->clockUpdate();
@@ -191,10 +216,17 @@ void GUI::update()							//update function
 	this->livesUpdate();
 	this->toLivesString();
 	this->powerUpdate();
+
+	this->platUpdate();
+	this->toPlatString();
 }
 
 void GUI::render(sf::RenderTarget & rTarget)		//render targets
 {	
+	if (this->clockUpdate() <= 10)
+	{
+		rTarget.draw(platText);
+	}
 	rTarget.draw(timerText);
 	rTarget.draw(scoreText);
 	rTarget.draw(livesText);
